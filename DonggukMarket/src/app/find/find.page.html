@@ -1,0 +1,43 @@
+<ion-app>
+  <ion-img src='assets/dg_img.png' style='height:90px'></ion-img>
+
+  <div class="hr"></div>
+
+  <ion-content class="log_title2">
+    <br>
+    <ion-list>
+      <ion-item>
+        <ion-label stacked> 이름 :</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+    </ion-list>
+   <br><br><br>
+    <section>
+      <ion-button item-right color="light" expand="block">ID 찾기</ion-button>
+    </section>
+  </ion-content>
+
+  <div class="hr2"></div>
+
+  <ion-content class="log_title">
+    <ion-list>
+      <ion-item>
+        <ion-label stacked> 이름 : </ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label stacked> &nbsp; ID :</ion-label>
+        <ion-input type="text"></ion-input>
+      </ion-item>
+    </ion-list>
+   <br><br>
+    <section>
+      <ion-button item-right color="light" expand="block">PW 찾기</ion-button>
+    </section>
+   
+  </ion-content>
+ 
+  <div class="hr"></div>
+  <ion-button style="margin-left:40px;margin-bottom:10px; width:70px" size="small" color="light" [routerLink]="['']">이전</ion-button>
+</ion-app>

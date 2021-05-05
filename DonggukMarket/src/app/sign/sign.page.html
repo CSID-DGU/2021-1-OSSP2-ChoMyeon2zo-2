@@ -1,0 +1,44 @@
+<ion-app>
+  <ion-img src='assets/dg_img.png' style='height:100px'></ion-img>
+  
+  <ion-content class="sign_menu">
+    <h3>회원 가입</h3>
+    <br><br>
+    <ion-item>
+      <div><ion-label class="input">이메일</ion-label>
+      <ion-input type="email" class="input2" style="width:100%;margin-left:-5px; margin-right:30%"></ion-input></div>
+      <div id="button" style="margin-left:17%" ><ion-button class="dup" color="light">중복확인</ion-button></div>
+    </ion-item>
+    
+    <br>
+    <ion-item>
+      <ion-label class="input">비밀번호 :</ion-label>
+      <ion-input type="password" class="input"></ion-input>
+    </ion-item>
+    
+    <br>
+    <ion-item>
+      <ion-label class="input">이름 :</ion-label>
+      <ion-input type="text" class="input"></ion-input>
+    </ion-item>
+
+    <br>
+    <ion-item>
+      <ion-label class="input">학과 :</ion-label>
+      <ion-input type="text" class="input"></ion-input>
+    </ion-item>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6"></ion-col>
+        <ion-col>
+          <ion-button color="light" [routerLink]="['']">이전</ion-button>
+          </ion-col>
+        <ion-col>
+        <ion-button  color="light" [routerLink]="['/phone-check']">다음</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+  
+</ion-app>
