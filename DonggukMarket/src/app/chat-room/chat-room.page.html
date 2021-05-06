@@ -1,0 +1,36 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/tabs/tab4"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Chatroom</ion-title>
+      <ion-buttons slot="end" (click)="deleteRoom()"> <!-- 채팅방 삭제 -->
+          <ion-icon name="trash" size="large"></ion-icon>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <div class="chat" *ngFor="let chat of chatRef | async">
+      <div class="me" *ngIf="currentU==chat.id && you==chat.You">
+        {{chat.Message}}
+      </div>
+      <div class="you" *ngIf="currentU==chat.You && you==chat.id "> <!-- 상대방 -->
+        <span class="name">
+          {{chat.MemberNum}}
+        </span><br>
+          {{chat.Message}}
+      </div>
+    </div>
+  </ion-content>
+  
+  <ion-footer>
+    <ion-toolbar color="light">
+      <ion-item>
+        <ion-input placeholder="Type.." [(ngModel)]="text" (keyup.enter)="send()"></ion-input>
+        <ion-button (click)="send()" fill="clear" icon-only slot="end">
+          <ion-icon name="send"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </ion-toolbar>
+  </ion-footer>

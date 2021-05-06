@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>
+        Chat
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true">
+    <ion-list>
+      <br>
+      <div class="chatting" *ngFor="let chatting of chattingRef | async">
+        <div  class="you" ion-item *ngIf="id==chatting.uid1">
+            {{chatting.uid2}}
+            <span style="float:right">
+              <ion-button color="medium" (click)="openChat(chatting.uid2)">
+                <ion-icon name="arrow-forward"></ion-icon>
+              </ion-button>
+            </span>
+        </div>
+        <div  class="you" ion-item *ngIf="id==chatting.uid2">
+            {{chatting.uid1}}
+            <span style="float:right">
+              <ion-button color="medium" (click)="openChat(chatting.uid1)">
+                <ion-icon name="arrow-forward"></ion-icon>
+              </ion-button>
+            </span>
+        </div>
+      </div>
+    </ion-list>
+  </ion-content>
+
+ 
