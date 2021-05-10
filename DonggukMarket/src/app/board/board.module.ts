@@ -1,22 +1,18 @@
-import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab3Page } from './board.page';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
+import { IonicModule } from '@ionic/angular';
+import { boardpage } from './board.page';
+import { boardpageRoutingModule } from './board-routing.module';
 
-import { Tab3PageRoutingModule } from './board-rounding.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    ExploreContainerComponentModule,
-    RouterModule.forChild([{ path: '', component: Tab3Page }]),
-    Tab3PageRoutingModule,
+    boardpageRoutingModule
   ],
-  declarations: [Tab3Page]
+  declarations: [boardpage]
 })
-export class Tab3PageModule {}
+export class boardPageModule {}

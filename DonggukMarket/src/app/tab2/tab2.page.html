@@ -1,17 +1,37 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Home
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Home</ion-title>
+<ion-header>
+  <ion-toolbar color = "primary">
+   
+      <ion-buttons slot="primary">
+       
+        <ion-button (click)="goCreatePost()" >
+          
+            <ion-icon slot="icon-only" ios="ios-create" md="md-create"></ion-icon>
+          </ion-button>
+         
+      </ion-buttons>
+      <ion-title>게시판</ion-title>
     </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Home page"></app-explore-container>
+  <ion-segment [(ngModel)]="segment" (ionChange)="segmentChanged($event)" >
+      <ion-segment-button value="대여">
+      <ion-label>대여</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="판매">
+          <ion-label>판매</ion-label>
+          </ion-segment-button>
+    </ion-segment>
+</ion-header>
+<ion-content >
+  <ion-col *ngFor="let item of items;" col-12 no-padding>
+      <ion-card (click)="getPost(item)" class="card" >
+          <img src="{{item.img}}" width="100px" height="150px"/>
+          <ion-card-content >
+                   <ion-row>
+                    <ion-col width-100><h1>{{item.titleInput}}  </h1> </ion-col> 
+                  </ion-row>
+                    <ion-row>
+                      <ion-col width-30><h4>{{item.textInput}}&nbsp;{{item.price}} </h4></ion-col>
+                    </ion-row>
+          </ion-card-content>
+    </ion-card>
+  </ion-col>
 </ion-content>
