@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      My Page
+      <b>My Page</b>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -14,13 +14,13 @@
   </ion-header>
 
   <div>
-    <div id="b">
+    <div>
       <ion-card>
         <ion-card-content>
           <ion-item>
               <ion-label><b>학생 110</b></ion-label> <!-- 유저명 -->   
-              <ion-badge style="float: right;" fill="clear" color="light" shape="round" size="small"> 공과대학 {{certification}}</ion-badge>  <!--단과대학 --> 
-              <ion-badge style="float: right;" fill="clear" color="success"  shape="round" size="small">재학생 인증 {{univ}}</ion-badge><br><br>  <!--재학생인증 유무 --> 
+              <ion-badge style="float: right;" fill="clear" color="light" shape="round" size="small"> 공과대학 {{univ}}</ion-badge>  <!--단과대학 --> 
+              <ion-badge style="float: right;" fill="clear" color="success"  shape="round" size="small">재학생 인증 {{certification}}</ion-badge><br><br>  <!--재학생인증 유무 --> 
           </ion-item>
           <ion-item>
               Oss02@dgu.ac.kr  <!-- 유저 이메일 -->
@@ -30,9 +30,14 @@
               <ion-button color="medium" expand="full" (click)="profile_modify()">프로필 수정</ion-button>
             </div> 
           </ion-item>
+          <ion-item>
+            <div id="text">
+              <ion-button color="medium" expand="full" (click)="certification()">재학생 인증</ion-button>
+            </div> 
+          </ion-item>
         </ion-card-content>
       </ion-card>
-    <br><br>
+    <br>
       <ion-card>
         <ion-card-content>
           <ion-item>
