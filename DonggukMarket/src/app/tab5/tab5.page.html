@@ -1,18 +1,82 @@
 <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title style="height: 50px;">
+      <b>My page</b>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title>
-        My Page
-      </ion-title>
+      <ion-title size="large">My Page</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div class="wrap" *ngIf="userid==null">
+    <button class="butn" [routerLink]="['/login']" routerDirection="forward">로그인</button><br>
+    <button class="butn" [routerLink]="['/sign']" routerDirection="forward">회원가입</button>
+  </div>
+  <div *ngIf="userid!=null">
+    <div>
+      <ion-card>
+        <ion-card-content>
+          <ion-item>
+            <ion-label><b>학생 110</b></ion-label> <!-- 유저명 -->   
+            <ion-badge style="float: right;" fill="clear" color="light" shape="round" size="small"> 공과대학 {{certification}}</ion-badge>  <!--단과대학 --> 
+            <ion-badge style="float: right;" fill="clear" color="success"  shape="round" size="small">재학생 인증 {{univ}}</ion-badge><br><br>  <!--재학생인증 유무 --> 
+        </ion-item>
+        <ion-item>
+            Oss02@dgu.ac.kr  <!-- 유저 이메일 -->
+        </ion-item>
+          <ion-item>
+            <div id="text">
+              <ion-button color="medium" expand="full" (click)="profile()">프로필 보기</ion-button>
+            </div> 
+          </ion-item>
+          <ion-item>
+            <div id="text">
+              <ion-button color="medium" expand="full" (click)="logout()">로그아웃</ion-button>
+            </div> 
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    <br>
+      <ion-card>
+        <ion-card-content>
+          <ion-item>
+            <ion-buttons slot="end" size="large">
+              <ion-icon name="bag-remove-outline" (click)="toText()"></ion-icon>
+            </ion-buttons>
+             판매 내역
+          </ion-item>
+          <ion-item>
+            <ion-buttons slot="end" size="large">
+              <ion-icon name="bag-add-outline" (click)="toLike()"></ion-icon>
+            </ion-buttons>
+              구매 내역
+          </ion-item>
+          <ion-item>
+            <ion-buttons slot="end" size="large">
+              <ion-icon name="bag-handle-outline" (click)="toScrap()"></ion-icon>
+            </ion-buttons>
+              대여 내역
+          </ion-item>
+          <ion-item>
+            <ion-buttons slot="end" size="large">
+              <ion-icon name="heart-outline" (click)="toLike()"></ion-icon>
+            </ion-buttons>
+              관심 목록
+          </ion-item>
+        <ion-item>
+          <ion-buttons slot="end" size="large">
+            <ion-icon name="search-outline" (click)="toWatch()"></ion-icon>
+          </ion-buttons>
+            최근에 본 목록
+        </ion-item>
+      </ion-card-content>
+      </ion-card>
+  </div>
+  </div>
   
-  <ion-content [fullscreen]="true">
-    <ion-header collapse="condense">
-      <ion-toolbar>
-        <ion-title size="large">My Page</ion-title>
-      </ion-toolbar>
-    </ion-header>
-  
-    <app-explore-container name="My Page"></app-explore-container>
-  </ion-content>
-  
+</ion-content>
