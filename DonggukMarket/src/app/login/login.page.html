@@ -5,17 +5,17 @@
     <ion-list>
       <ion-item>
         <ion-label stacked><ion-icon name="person"></ion-icon></ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" [(ngModel)]="user.email" placeholder="id@dgu.ac.kr"></ion-input>
       </ion-item>
     
       <ion-item>
         <ion-label stacked><ion-icon name="bag-outline"></ion-icon></ion-label>
-        <ion-input type="password"></ion-input>
+        <ion-input type="password" [(ngModel)]="user.password" placeholder="********"></ion-input>
       </ion-item>
     </ion-list>
    <br>
     <section>
-      <ion-button item-right color="light" expand="block">로그인</ion-button>
+      <ion-button item-right color="light" expand="block" (click)="login()" >로그인</ion-button>
     </section>
     <br>
     <ion-button color="light" [routerLink]="['']">이전</ion-button>
