@@ -13,11 +13,11 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="wrap" *ngIf="userid!=null">
+  <div class="wrap" *ngIf="userid==null">
     <button class="butn" [routerLink]="['/login']" routerDirection="forward">로그인</button><br>
     <button class="butn" [routerLink]="['/sign']" routerDirection="forward">회원가입</button>
   </div>
-  <div *ngIf="userid==null">
+  <div *ngIf="userid!=null">
     <div>
       <ion-card>
         <ion-card-content>
