@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AlertController } from '@ionic/angular';
-import firebase from 'firebase/app'
 
 export class User {
   email: string;
