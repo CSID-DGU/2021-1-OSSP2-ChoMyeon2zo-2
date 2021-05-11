@@ -1,8 +1,5 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button text="" defaultHref="/tabs/tab5"></ion-back-button>
-    </ion-buttons>
     <ion-title style="height: 50px;">
       <b>My page</b>
     </ion-title>
@@ -16,11 +13,11 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="wrap" *ngIf="userid==null">
+  <div class="wrap" *ngIf="userid!=null">
     <button class="butn" [routerLink]="['/login']" routerDirection="forward">로그인</button><br>
     <button class="butn" [routerLink]="['/sign']" routerDirection="forward">회원가입</button>
   </div>
-  <div *ngIf="userid!=null">
+  <div *ngIf="userid==null">
     <div>
       <ion-card>
         <ion-card-content>
