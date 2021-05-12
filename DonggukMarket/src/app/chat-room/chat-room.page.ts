@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+//import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 import * as firebase from 'firebase';
-import { Storage } from '@ionic/storage';
-import {ActivatedRoute, Router} from '@angular/router';
+//import { Storage } from '@ionic/storage';
+import { Router} from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { NavController } from '@ionic/angular';
+//import { NavController } from '@ionic/angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
@@ -34,20 +34,11 @@ export class ChatRoomPage implements OnInit {
     chatnum:number; // 몇번째 채팅내용인지 찾기 위한 변수
   
     constructor(
-      public af:AngularFireAuth,
       public fs:AngularFirestore, 
-      public stor:Storage,
-      public ac:ActivatedRoute,
       public atrCtrl:AlertController,
-      public navCtrl:NavController,
       public router: Router,
       public db:AngularFireDatabase
       ) { 
-      //this.id=this.af.auth.currentUser.id;
-      this.chatRef=this.fs.collection('chats',ref=>ref.orderBy('Timestamp')).valueChanges();
-      let you=this.ac.snapshot.paramMap.get('you');
-      this.you=you;
-      this.currentU=this.af.auth.currentUser.email;
     }
    
     ngOnInit(){}
@@ -67,7 +58,7 @@ export class ChatRoomPage implements OnInit {
               Email:this.currentU,
               You:this.you,
               Message:this.text,
-              //Timestamp:firebase.firestore.FieldValue.serverTimestamp(),
+              Timestamp:firebase.firestore.FieldValue.serverTimestamp(),
               num:this.index
             });
             this.text='';

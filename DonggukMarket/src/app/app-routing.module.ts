@@ -45,6 +45,10 @@ const routes: Routes = [
   {
     path:'board',
     loadChildren: () => import('./board/board.module').then(m =>m.boardPageModule)
+  },
+  {
+    path:'chat-room',
+    loadChildren: () => import('./chat-room/chat-room.module').then(m =>m.ChatRoomPageModule)
   }
 
 ];
