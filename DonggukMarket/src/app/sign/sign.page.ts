@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AlertController } from '@ionic/angular';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase } from 'angularfire2/database';
+
 import * as firebase from 'firebase';
 
 @Component({
@@ -59,7 +60,7 @@ export class SignPage implements OnInit {
     this.db.object(`userinfo/${strArray}/email`).set(this.email);
 
     
-    this.fAuth.createUserWithEmailAndPassword(this.email,this.password)
+    this.fAuth.auth.createUserWithEmailAndPassword(this.email,this.password)
     .then((result)=>{
       console.log(result);
       this.navCtrl.navigateForward('/phone-check');

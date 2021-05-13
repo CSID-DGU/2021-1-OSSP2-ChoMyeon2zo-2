@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AlertController } from '@ionic/angular';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 export class User {
   email: string;
@@ -17,16 +18,19 @@ export class LoginPage implements OnInit {
   public user:User = new User();
   constructor(
     public navCtrl: NavController, 
-    public fAuth: AngularFireAuth,
-    public alertController: AlertController
+    public afAuth: AngularFireAuth,
+    public alertController: AlertController,
+    public db: AngularFireDatabase,
   ) { }
+
   async clear(){
     this.user.email = '';
     this.user.password = '';
-  }  
+  } 
+
   async login() {
     try {
-      var r = await this.fAuth.signInWithEmailAndPassword(
+      var r = await this.afAuth.auth.signInWithEmailAndPassword(
         this.user.email,
         this.user.password
       );
