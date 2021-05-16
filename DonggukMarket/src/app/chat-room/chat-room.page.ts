@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-//import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import * as firebase from 'firebase';
-//import { Storage } from '@ionic/storage';
 import { Router} from '@angular/router';
 import { AlertController } from '@ionic/angular';
-//import { NavController } from '@ionic/angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
@@ -19,14 +16,14 @@ export class ChatRoomPage implements OnInit {
   
 
     text:string;
-    chatRef:any;
     me:string;
     you:string;
-    id:string;
+    chatRef:any;
+    userid:string;
     size:number; // 총 채팅내용 개수
     index:number; // 채팅 내용이 몇번째 컨텐츠인지
-    tmp1:string; // uid1과 uid2를 string으로 저장하기 위함
-    tmp2:string;
+    user1:string; // uid1과 uid2를 string으로 저장하기 위함
+    user2:string;
     number:number; // 채팅방 번호 찾기 위한 변수
     tmpid:string;
     tmpYou:string;
@@ -34,11 +31,17 @@ export class ChatRoomPage implements OnInit {
     chatnum:number; // 몇번째 채팅내용인지 찾기 위한 변수
   
     constructor(
-      public fs:AngularFirestore, 
+      public fs:AngularFirestoreModule, 
       public atrCtrl:AlertController,
       public router: Router,
       public db:AngularFireDatabase
       ) { 
+        //this.chatRef = firebase.firestore().collection('chats',ref=>ref.orderBy('Timestamp')).valueChanges();
+        firebase.firestore().collection('chats').orderBy('Timestamp').get().then
+        (snapshot=>{snapshot.forEach(doc=>{this.chatRef =   doc.data();})});
+        //you와 current user 값 넘어와야함 
+        this.you = "hellod";
+        this.currentU = "current user";
     }
    
     ngOnInit(){}
@@ -51,12 +54,12 @@ export class ChatRoomPage implements OnInit {
           console.log("chatting : "+this.size);
           if(this.size===0){
             this.index=0;
-            this.fs.collection('ChatSize').doc('index').set({
+            db.collection('ChatSize').doc('index').set({
               index:this.index
             });
-            this.fs.collection('chats').doc((this.index).toString()).set({
-              Email:this.currentU,
-              You:this.you,
+            db.collection('chats').doc((this.index).toString()).set({
+              me:this.currentU,
+              you:this.you,
               Message:this.text,
               Timestamp:firebase.firestore.FieldValue.serverTimestamp(),
               num:this.index
@@ -70,12 +73,12 @@ export class ChatRoomPage implements OnInit {
                 let getSize=doc.data().index;
                 this.index=getSize;
                 this.index=this.index+1;
-                this.fs.collection('ChatSize').doc('index').set({
+                db.collection('ChatSize').doc('index').set({
                   index:this.index
                 });
-                this.fs.collection('chats').doc((this.index).toString()).set({
-                  Email:this.currentU,
-                  You:this.you,
+                db.collection('chats').doc((this.index).toString()).set({
+                  me:this.currentU,
+                  you:this.you,
                   Message:this.text,
                   Timestamp:firebase.firestore.FieldValue.serverTimestamp(),
                   num:this.index
@@ -98,8 +101,7 @@ export class ChatRoomPage implements OnInit {
             role:'cancel',
             handler:(blah)=>{
               console.log('채팅방 삭제');
-              //window.location.href = '/tabs/tab1';
-              this.router.navigateByUrl('tabs/tab1');
+              this.router.navigateByUrl('tabs/tab4');
             }
           }
         ]
@@ -133,10 +135,10 @@ export class ChatRoomPage implements OnInit {
                   let get1=doc.data().uid1;
                   let get2=doc.data().uid2;
                   let getIndex=doc.data().num;
-                  this.tmp1=get1;
-                  this.tmp2=get2;
+                  this.user1=get1;
+                  this.user2=get2;
                   this.number=getIndex;
-                  if((this.tmp1===this.you && this.tmp2===this.currentU) || (this.tmp2===this.you && this.tmp1===this.currentU)){
+                  if((this.user1===this.you && this.user2===this.currentU) || (this.user2===this.you && this.user1===this.currentU)){
                     db.collection("chatting").doc((this.number).toString()).delete();
                     console.log("Delete list");
                     collection2.get().then(snapshot=>{
@@ -144,7 +146,7 @@ export class ChatRoomPage implements OnInit {
                         let getid=doc.data().id;
                         let getYou=doc.data().You;
                         let getCIdx=doc.data().num;
-                        this.id=getid;
+                        this.userid=getid;
                         this.tmpYou=getYou;
                         this.chatnum=getCIdx;
                         if((this.tmpid===this.currentU && this.tmpYou===this.you)|| (this.tmpid===this.you && this.tmpYou===this.currentU)){
