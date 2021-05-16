@@ -34,15 +34,15 @@ export class LoginPage implements OnInit {
         this.user.email,
         this.user.password
       );
-      if(this.user.email.indexOf("@dgu.ac.kr")<0) {
+      if(this.user.email.indexOf("@")<0 || this.user.email.indexOf('.')<0) {
         const alert = await this.alertController.create({
-          message: '이메일 형식이 틀렸습니다!',
+          message: '이메일 형식이 아닙니다!',
           buttons: ['닫기']
         });
         this.clear();
         await alert.present();
       };
-      if(this.user.email.indexOf("@dgu.ac.kr")>=0){
+      if(this.user.email.indexOf("@")>=0 && this.user.email.indexOf(".")>=0){
         
         this.presentAlert();
       }

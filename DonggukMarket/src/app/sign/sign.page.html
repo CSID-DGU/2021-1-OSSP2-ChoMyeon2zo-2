@@ -2,12 +2,13 @@
   <ion-img src='assets/dg_img.png' style='height:100px'></ion-img>
   
   <ion-content class="sign_menu">
+
     <h3>회원 가입</h3>
-    <br><br>
     <ion-item>
-      <ion-label class="input">ID : </ion-label>
-      <ion-input type="text" [(ngModel)]="id" ></ion-input>
-      @dgu.ac.kr&nbsp;&nbsp;
+      <ion-label class="input">이메일 : </ion-label>&nbsp;
+      <ion-input type="text" [(ngModel)]="id" placeholder="   아이디" ></ion-input>
+      @
+      <ion-input type="text" [(ngModel)]="domain" placeholder="도메인 주소"></ion-input>
     </ion-item>
 
     <br>
@@ -24,11 +25,29 @@
 
     <br>
     <ion-item>
-      <ion-label class="input">학과 :</ion-label>
-      <ion-input type="text" [(ngModel)]="major" class="input" placeholder=" ex) 컴퓨터공학과"></ion-input>
+      <ion-label class="input">학교:</ion-label>
+          <ion-select class="input" placeholder="클릭하세요  " [(ngModel)]="school">
+            <ion-select-option value="동국대학교">동국대학교 </ion-select-option>
+            <ion-select-option value="건국대학교">건국대학교 </ion-select-option>
+            <ion-select-option value="홍익대학교">홍익대학교 </ion-select-option>
+          </ion-select>
+
+          &nbsp;&nbsp;
+
+      <ion-label class="input">  학과:</ion-label>
+      <ion-input class="ion-text-end" type="text" [(ngModel)]="major" class="input" placeholder=" "></ion-input>
     </ion-item>
 
-
+    <br>
+    <div id="recaptcha-container"></div>
+    <br>
+    <p class = "short">&nbsp;&nbsp;인증버튼을 누른 뒤, reCAPTCHA 인증을 받아야 인증번호가 발송됩니다.</p>
+    <ion-item>
+      <ion-label class="input">  전화번호 :</ion-label>
+      <ion-input  type="tel" [(ngModel)]="phone" placeholder="-없이 입력해주세요"></ion-input>
+      <ion-button color="light"  (click)="sendPhone()">인증</ion-button>
+    </ion-item>
+    
     <ion-grid>
       <ion-row>
         <ion-col size="6"></ion-col>
