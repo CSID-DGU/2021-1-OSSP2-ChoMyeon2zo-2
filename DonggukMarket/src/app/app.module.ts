@@ -12,12 +12,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import{FIREBASE_CONFIG} from './environment'
 
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
-//import { AngularFireAuth } from '@angular/fire/auth';
-//import { Storage } from '@ionic/storage';
-import { Router} from '@angular/router';
-//import { NavController } from '@ionic/angular';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -32,12 +28,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
     AngularFireStorageModule,
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
-    
-    Router,
-    AngularFirestore
+    AngularFirestoreModule
   ],
   providers: [
-     AngularFirestore,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent],
