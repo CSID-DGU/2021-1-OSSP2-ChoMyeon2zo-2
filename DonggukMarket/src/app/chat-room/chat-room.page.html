@@ -12,12 +12,12 @@
 
   <ion-content>
     <div class="chat" *ngFor="let chat of chatRef | async">
-      <div class="me" *ngIf="currentU==chat.id && you==chat.You">
+      <div class="me" *ngIf="currentU==chat.me && you==chat.you">
         {{chat.Message}}
       </div>
-      <div class="you" *ngIf="currentU==chat.You && you==chat.id "> <!-- 상대방 -->
+      <div class="you" *ngIf="currentU==chat.you && you==chat.me "> <!-- 상대방 -->
         <span class="name">
-          {{chat.MemberNum}}
+          {{chat.you}}
         </span><br>
           {{chat.Message}}
       </div>
