@@ -33,7 +33,8 @@ export class boardpage {
     titleInput:'',
     price:'',
     textInput:'',
-    postkey:''
+    postkey:'',
+    img:''
   }
   constructor(
     //public stor:Storage,
@@ -74,13 +75,14 @@ export class boardpage {
       });
       return 0;
     } else {
-      this.regisBoard.userid= 'hellod';
+      this.regisBoard.userid= 'hod';
       this.regisBoard.category=this.category;
       this.regisBoard.type=this.type;
       this.regisBoard.price=this.price;
       this.regisBoard.titleInput=this.titleInput;
       this.regisBoard.textInput=this.textInput;
       this.postkey = new Date().getTime();
+      this.regisBoard.img='assets/main_img.png';
       this.regisBoard.postkey = String(this.postkey);
       this.db.object(`board/${this.postkey}`).set(this.regisBoard);
       alert('글이 등록되었습니다.');

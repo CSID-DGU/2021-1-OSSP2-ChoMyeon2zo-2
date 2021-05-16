@@ -1,28 +1,26 @@
 <ion-header>
-  <ion-toolbar color = "primary">
-   
+  <ion-toolbar color = "white">
       <ion-buttons slot="primary">
-       
         <ion-button (click)="goCreatePost()" >
-          
-            <ion-icon slot="icon-only" ios="ios-create" md="md-create"></ion-icon>
+          <ion-icon name="pencil-outline" size="medium"></ion-icon>
           </ion-button>
-         
       </ion-buttons>
-      <ion-title>게시판</ion-title>
+      <ion-title><b expand="full">대여 및 공동구매</b></ion-title>
     </ion-toolbar>
   <ion-segment [(ngModel)]="segment" (ionChange)="segmentChanged($event)" >
       <ion-segment-button value="대여">
       <ion-label>대여</ion-label>
       </ion-segment-button>
-      <ion-segment-button value="판매">
-          <ion-label>판매</ion-label>
+      <ion-segment-button value="공동구매">
+          <ion-label>공동구매</ion-label>
           </ion-segment-button>
     </ion-segment>
 </ion-header>
 <ion-content >
   <ion-col *ngFor="let item of items;" col-12 no-padding>
       <ion-card (click)="getPost(item)" class="card" >
+        <ion-button  size="small" fill="outline"(click)="CreateChat(item.userid)">
+          <ion-icon name="contact"></ion-icon>{{item.userid}}</ion-button>
           <img src="{{item.img}}" width="100px" height="150px"/>
           <ion-card-content >
                    <ion-row>

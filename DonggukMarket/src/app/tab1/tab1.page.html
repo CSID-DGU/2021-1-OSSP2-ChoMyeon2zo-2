@@ -1,8 +1,11 @@
 <ion-header>
-  <ion-toolbar style="height: 50px;">
-    <ion-title>
-      <b expand="full">검색</b>
-    </ion-title>
+  <ion-toolbar color = "white">
+    <ion-buttons slot="primary">
+      <ion-button (click)="goCreatePost()" >
+        <ion-icon name="pencil-outline" size="medium"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title><b expand="full">검색</b></ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,21 +14,21 @@
     <ion-row justify-content-center align-items-start >
       <ion-searchbar (click)="searchView()" placeholder="물건을 검색해보세요"></ion-searchbar>
     </ion-row>
-
-    <!-- 삭제해도 되는 부분 -->
-    <ion-row>
-      <ion-col *ngFor="let item of posttags" col-6 no-padding>
-        <ion-card (click)="loadList(item)"  >
-          <img src="{{imgurls[item]}}" width="150px" height="120px"/>
-
-    <ion-card-content class="fixline" >
-        <!-- class="fixline" -->
-            #{{item}}
-          <p>게시글 수:&nbsp;{{postnum[item]}}</p>
-    </ion-card-content>
-
-        </ion-card>
-      </ion-col>
-    </ion-row>
+    <ion-col *ngFor="let item of items;" col-12 no-padding>
+      <ion-card (click)="getPost(item)" class="card" >
+        <ion-button  size="small" fill="outline"(click)="CreateChat(item.userid)">
+          <ion-icon name="contact"></ion-icon>{{item.userid}}</ion-button>
+          <img src="{{item.img}}" width="100px" height="150px"/>
+          <ion-card-content >
+                   <ion-row>
+                    <ion-col width-100><h1>{{item.titleInput}}  </h1> </ion-col> 
+                  </ion-row>
+                    <ion-row>
+                      <ion-col width-30><h4>{{item.textInput}}&nbsp;{{item.price}} </h4></ion-col>
+                    </ion-row>
+          </ion-card-content>
+    </ion-card>
+  </ion-col>
+   
   </ion-grid>
 </ion-content>
