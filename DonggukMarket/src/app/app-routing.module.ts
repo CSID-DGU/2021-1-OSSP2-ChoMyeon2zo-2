@@ -45,7 +45,8 @@ const routes: Routes = [
   {
     path:'chat-room',
     loadChildren: () => import('./chat-room/chat-room.module').then(m =>m.ChatRoomPageModule)
-  }
+  },
+  { path:'post/:postkey/:writer',loadChildren: () => import('./post/post.module').then(m =>m.PostPageModule)}
 
 ];
 @NgModule({
