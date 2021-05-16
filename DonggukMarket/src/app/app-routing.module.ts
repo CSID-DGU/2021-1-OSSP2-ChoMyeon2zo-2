@@ -23,10 +23,6 @@ const routes: Routes = [
     loadChildren: () => import('./find/find.module').then( m => m.FindPageModule)
   },
   {
-    path: 'phone-check',
-    loadChildren: () => import('./check/phone-check/phone-check.module').then( m => m.PhoneCheckPageModule)
-  },
-  {
     path: 'student-check',
     loadChildren: () => import('./check/student-check/student-check.module').then( m => m.StudentCheckPageModule)
   },
