@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
+import { AngularFirestore } from 'angularfire2/firestore';
+
 
 @Component({
   selector: 'app-tab4',
@@ -6,7 +9,13 @@ import { Component } from '@angular/core';
   styleUrls: ['tab4.page.scss']
 })
 export class Tab4Page {
-
-  constructor() {}
-
+  chattingRef: any;
+  Email: string;
+  you: string;
+  constructor(
+    public fs: AngularFirestore,
+    public atrCtrl: AlertController
+    ) {
+      this.chattingRef = this.fs.collection('chatting', ref => ref.orderBy('Timestamp')).valueChanges();
+  }
 }
