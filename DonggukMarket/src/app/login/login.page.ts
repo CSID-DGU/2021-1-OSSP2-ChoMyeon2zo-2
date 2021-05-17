@@ -3,7 +3,7 @@ import { NavController } from '@ionic/angular';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AlertController } from '@ionic/angular';
 import { AngularFireDatabase } from 'angularfire2/database';
-
+import { Storage } from '@ionic/storage';
 export class User {
   email: string;
   password: string;
@@ -21,6 +21,8 @@ export class LoginPage implements OnInit {
     public afAuth: AngularFireAuth,
     public alertController: AlertController,
     public db: AngularFireDatabase,
+    public stor: Storage
+
   ) { }
 
   async clear(){
@@ -34,6 +36,7 @@ export class LoginPage implements OnInit {
         this.user.email,
         this.user.password
       );
+      var temp= this.user.email.split('@');
       if(this.user.email.indexOf("@")<0 || this.user.email.indexOf('.')<0) {
         const alert = await this.alertController.create({
           message: '이메일 형식이 아닙니다!',
@@ -45,6 +48,7 @@ export class LoginPage implements OnInit {
       if(this.user.email.indexOf("@")>=0 && this.user.email.indexOf(".")>=0){
         
         this.presentAlert();
+        this.stor.set('id',temp[0]);
       }
       
 

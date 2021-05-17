@@ -11,7 +11,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import{FIREBASE_CONFIG} from './environment'
-
+import{IonicStorageModule} from '@ionic/storage'
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 
@@ -28,6 +28,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AngularFireStorageModule,
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireDatabaseModule,
+    IonicStorageModule,
+    IonicStorageModule.forRoot(),
     AngularFirestoreModule
   ],
   providers: [

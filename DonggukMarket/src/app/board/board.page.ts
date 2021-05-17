@@ -11,6 +11,7 @@ import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/database'
 import 'firebase/storage'
+import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 
 @Component({
   selector: 'app-board',
@@ -37,14 +38,17 @@ export class boardpage {
     img:''
   }
   constructor(
-    //public stor:Storage,
+    public stor:Storage,
     private alertCtrl:AlertController,
     public db:AngularFireDatabase,
     public st:AngularFireStorage,
     public router:Router,
    //private camera:Camera
   ) {
-
+    this.stor.get('id').then((val)=>{
+      this.userid=val;
+    });
+     console.log(this.userid);
   }
   ngOnInit() {
   }
@@ -62,6 +66,8 @@ export class boardpage {
       });
       this.router.navigateByUrl('login');
     }
+    else
+    {
     if(this.userid===''||this.category===''||this.type===''||this.titleInput===''||this.price===''||this.textInput===''){
       this.alertCtrl.create({
         header: '',
@@ -75,7 +81,7 @@ export class boardpage {
       });
       return 0;
     } else {
-      this.regisBoard.userid= 'hod';
+      this.regisBoard.userid= this.userid;
       this.regisBoard.category=this.category;
       this.regisBoard.type=this.type;
       this.regisBoard.price=this.price;
@@ -91,6 +97,7 @@ export class boardpage {
      }*/
       this.router.navigateByUrl('/tabs/tab2');
     }
+  }
   }
   
 }
