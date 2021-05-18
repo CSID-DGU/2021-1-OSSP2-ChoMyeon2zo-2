@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import * as firebase from 'firebase';
-import { Router} from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFirestore } from 'angularfire2/firestore';
@@ -38,12 +38,12 @@ export class ChatRoomPage implements OnInit {
       public router: Router,
       public db:AngularFireDatabase,
       public fb : AngularFirestore,
-      public stor : Storage
+      public stor : Storage,
+      public ac:ActivatedRoute,
       ) { 
         this.chatRef = fb.collection('chats',ref=>ref.orderBy('Timestamp')).valueChanges();
-        //you와 current user 값 넘어와야함 
-        this.you = "hellod";
-        this.currentU = "current user";
+        this.you = this.ac.snapshot.paramMap.get('you');
+        this.stor.get('id').then((val) => { this.currentU = val; });
     }
    
     ngOnInit(){}
