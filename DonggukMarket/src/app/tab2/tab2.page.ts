@@ -6,6 +6,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase';
 import { AlertController } from '@ionic/angular';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import {Storage} from '@ionic/storage'
 
 @Component({
   selector: 'app-tab2',
@@ -38,6 +39,8 @@ export class Tab2Page {
       
       public alertCtrl: AlertController,
       public fs: AngularFirestoreModule,
+      public stor : Storage,
+      public ac:ActivatedRoute,
     ) {
     }
     ngOnInit(){
@@ -96,8 +99,9 @@ export class Tab2Page {
               handler: () => {
                 console.log('Confirm Okay');
 
-                var user1 = "current user";
-                var user2 = you;
+                var user1;
+                this.stor.get('id').then((val) => { user1 = val; });
+                var user2 = this.ac.snapshot.paramMap.get('you');
 
                 if ( user1 === user2 ) { // 채팅 대상자가 본인인 경우
                   this.chatMe();
