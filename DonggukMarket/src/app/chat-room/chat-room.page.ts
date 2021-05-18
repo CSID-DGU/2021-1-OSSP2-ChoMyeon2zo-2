@@ -6,6 +6,7 @@ import { Router} from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFirestore } from 'angularfire2/firestore';
+import {Storage} from '@ionic/storage'
 
 @Component({
   selector: 'app-chat-room',
@@ -36,7 +37,8 @@ export class ChatRoomPage implements OnInit {
       public atrCtrl:AlertController,
       public router: Router,
       public db:AngularFireDatabase,
-      public fb : AngularFirestore
+      public fb : AngularFirestore,
+      public stor : Storage
       ) { 
         this.chatRef = fb.collection('chats',ref=>ref.orderBy('Timestamp')).valueChanges();
         //you와 current user 값 넘어와야함 
