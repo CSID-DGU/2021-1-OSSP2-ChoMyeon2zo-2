@@ -129,7 +129,7 @@ export class Tab2Page {
                           index: this.index
                         });
                         firebase.firestore().collection('chatting').doc((this.index).toString()).set({
-                          uid1: "current user",
+                          uid1: user1,
                           uid2: you,
                           Timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                           num: this.index
@@ -141,7 +141,7 @@ export class Tab2Page {
                             this.index = this.getSize;
                             this.index = this.index + 1;
                             firebase.firestore().collection('chatting').doc((this.index).toString()).set({
-                              uid1: "current user",
+                              uid1: user1,
                               uid2: you,
                               Timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                               num: this.index
