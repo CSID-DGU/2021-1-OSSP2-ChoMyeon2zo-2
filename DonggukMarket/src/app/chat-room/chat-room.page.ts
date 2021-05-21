@@ -168,5 +168,11 @@ export class ChatRoomPage implements OnInit {
       });
       await al.present();
     }
+
+    evalueReliablity(){
+    
+    }
   }
+
+ 
 

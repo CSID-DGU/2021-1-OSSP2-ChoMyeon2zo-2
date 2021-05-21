@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 import { AlertController } from '@ionic/angular';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import {Storage} from '@ionic/storage'
+import { R3UsedDirectiveMetadata } from '@angular/compiler';
 
 @Component({
   selector: 'app-tab2',
@@ -27,6 +28,7 @@ export class Tab2Page {
   getuid1: string;
   getuid2: string;
   index: number;
+  public userid : string;
   first = true; // 처음 추가되는 채팅목록인지
 
   
@@ -42,6 +44,7 @@ export class Tab2Page {
       public stor : Storage,
       public ac:ActivatedRoute,
     ) {
+      this.stor.get('id').then((val)=>{ this.userid=val;});
     }
     ngOnInit(){
       this.segment='대여';
@@ -82,86 +85,102 @@ export class Tab2Page {
     }
 
     async CreateChat(you:string){
-      this.check = false;
-      const alert = await this.alertCtrl.create({
-          header: '확인!',
-          message: '<strong>' + you + '</strong>' + '와 채팅하시겠습니까??',
-          buttons: [
-            {
-              text: 'Cancel',
-              role: 'cancel',
-              cssClass: 'secondary',
-              handler: (blah) => {
-                console.log('Confirm Cancel: blah');
-              }
-            }, {
-              text: 'Okay',
-              handler: () => {
-                console.log('Confirm Okay');
-
-                var user1;
-                this.stor.get('id').then((val) => { user1 = val; });
-                var user2 = this.ac.snapshot.paramMap.get('you');
-
-                if ( user1 === user2 ) { // 채팅 대상자가 본인인 경우
-                  this.chatMe();
-                } else { // 채팅방 생성 
-                  this.chattingRef = firebase.firestore().collection('chatting')
-                  const db = firebase.firestore();
-                  const collection = db.collection('chatting');
-
-                  collection.get().then(snapshot => {
-                    snapshot.forEach(doc => {
-                      let get1 = doc.data().uid1;
-                      let get2 = doc.data().uid2;
-                      this.getuid1 = get1;
-                      this.getuid2 = get2;
-                      if ((user1 === this.getuid1 && user2 === this.getuid2) || (user1 === this.getuid2 && user2 === this.getuid1)) {
-                        this.check = true;
-                      }
-                    });
-                    if (this.check === false)
-                    {
-                      this.size = snapshot.size;
-                      if (this.size === 0) { // 채팅 목록이 한개도 없음
-                        this.index = 0;
-                        firebase.firestore().collection('ListSize').doc('index').set({
-                          index: this.index
-                        });
-                        firebase.firestore().collection('chatting').doc((this.index).toString()).set({
-                          uid1: user1,
-                          uid2: you,
-                          Timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                          num: this.index
-                        });
-                      } else { // 채팅 목록이 1개이상 존재할 때
-                        db.collection('ListSize').get().then( snapshot => {
-                          snapshot.forEach(doc => {
-                            this.getSize = doc.data().index;
-                            this.index = this.getSize;
-                            this.index = this.index + 1;
-                            firebase.firestore().collection('chatting').doc((this.index).toString()).set({
-                              uid1: user1,
-                              uid2: you,
-                              Timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                              num: this.index
-                            });
-                            firebase.firestore().collection('ListSize').doc('index').set({
-                              index: this.index
+      if(!this.userid){
+        this.alertCtrl.create({
+          header:'',
+          message: '로그인 후 이용해주세요',
+          buttons:[{
+            text:'확인',
+            role: 'cancel'
+          }]
+        }).then(alertEI=>{
+          alertEI.present();
+        });
+        this.router.navigateByUrl('login');
+      }
+      else{
+        this.check = false;
+        const alert = await this.alertCtrl.create({
+            header: '확인!',
+            message: '<strong>' + you + '</strong>' + '와 채팅하시겠습니까??',
+            buttons: [
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                cssClass: 'secondary',
+                handler: (blah) => {
+                  console.log('Confirm Cancel: blah');
+                }
+              }, {
+                text: 'Okay',
+                handler: () => {
+                  console.log('Confirm Okay');
+  
+                  var user1;
+                  this.stor.get('id').then((val) => { user1 = val; });
+                  var user2 = this.ac.snapshot.paramMap.get('you');
+  
+                  if ( user1 === user2 ) { // 채팅 대상자가 본인인 경우
+                    this.chatMe();
+                  } else { // 채팅방 생성 
+                    this.chattingRef = firebase.firestore().collection('chatting')
+                    const db = firebase.firestore();
+                    const collection = db.collection('chatting');
+  
+                    collection.get().then(snapshot => {
+                      snapshot.forEach(doc => {
+                        let get1 = doc.data().uid1;
+                        let get2 = doc.data().uid2;
+                        this.getuid1 = get1;
+                        this.getuid2 = get2;
+                        if ((user1 === this.getuid1 && user2 === this.getuid2) || (user1 === this.getuid2 && user2 === this.getuid1)) {
+                          this.check = true;
+                        }
+                      });
+                      if (this.check === false)
+                      {
+                        this.size = snapshot.size;
+                        if (this.size === 0) { // 채팅 목록이 한개도 없음
+                          this.index = 0;
+                          firebase.firestore().collection('ListSize').doc('index').set({
+                            index: this.index
+                          });
+                          firebase.firestore().collection('chatting').doc((this.index).toString()).set({
+                            uid1: user1,
+                            uid2: you,
+                            Timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                            num: this.index
+                          });
+                        } else { // 채팅 목록이 1개이상 존재할 때
+                          db.collection('ListSize').get().then( snapshot => {
+                            snapshot.forEach(doc => {
+                              this.getSize = doc.data().index;
+                              this.index = this.getSize;
+                              this.index = this.index + 1;
+                              firebase.firestore().collection('chatting').doc((this.index).toString()).set({
+                                uid1: user1,
+                                uid2: you,
+                                Timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                                num: this.index
+                              });
+                              firebase.firestore().collection('ListSize').doc('index').set({
+                                index: this.index
+                              });
                             });
                           });
-                        });
+                        }
+                        console.log('new chatting list');
                       }
-                      console.log('new chatting list');
-                    }
-                  });
-                  this.router.navigate(['chat-room',you]);
+                    });
+                    this.router.navigate(['chat-room',you]);
+                  }
                 }
               }
-            }
-          ]
-      });
-      await alert.present();
+            ]
+        });
+        await alert.present();
+      }
+    
     }
     
   }
