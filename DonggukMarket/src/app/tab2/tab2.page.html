@@ -18,18 +18,17 @@
 </ion-header>
 <ion-content >
   <ion-col *ngFor="let item of items;" col-12 no-padding>
-      <ion-card (click)="getPost(item)" class="card" >
-        <ion-button  size="small" fill="outline"(click)="CreateChat(item.userid)">
-          <ion-icon name="contact"></ion-icon>{{item.userid}}</ion-button>
-          <img src="{{item.img}}" width="100px" height="150px"/>
-          <ion-card-content >
-                   <ion-row>
-                    <ion-col width-100><h1>{{item.titleInput}}  </h1> </ion-col> 
-                  </ion-row>
-                    <ion-row>
-                      <ion-col width-30><h4>{{item.textInput}}&nbsp;{{item.price}} </h4></ion-col>
-                    </ion-row>
-          </ion-card-content>
-    </ion-card>
+      <ion-item (click)="getPost(item)" class="card" >
+          <ion-img src="{{item.img}}" style='width:50%;height:50%'></ion-img>
+          <ion-label>
+            <h2>TITLe: {{item.titleInput}} </h2>
+            <p>NiCKNAME: {{item.userid}}</p>
+            <p>PRICE:{{item.price}}</p>
+          </ion-label>
+          <ion-note slot="end">
+            <ion-icon name="heart" color="danger"></ion-icon>
+            {{item.like}}
+          </ion-note>
+    </ion-item>
   </ion-col>
 </ion-content>
