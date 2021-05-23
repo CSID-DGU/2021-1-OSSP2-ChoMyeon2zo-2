@@ -48,7 +48,8 @@
             value="{{item.textInput}}">
           </textarea>
         </ion-item>
-        <ion-button  expand="block" shape="round" fill="outline"(click)="CreateChat(item.userid)"><ion-icon name="contact"></ion-icon>채팅하러 가기</ion-button>
+        <ion-button *ngIf=" name != currentU" expand="block" shape="round" fill="outline"(click)="CreateChat(item.userid)"><ion-icon name="contact"></ion-icon>채팅하러 가기</ion-button>
     </ion-card-content>
   </ion-card>
   </ion-content>
+  <ion-button *ngIf = "name === currentU" (click)= "deletepost()" > 삭제 </ion-button>

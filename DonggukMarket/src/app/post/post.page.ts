@@ -42,28 +42,27 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     public plat:Platform,
     public activatedRoute:ActivatedRoute,
     public db:AngularFireDatabase,
-    
+    public stor:Storage,
     public alertCtrl: AlertController,
     public fs: AngularFirestoreModule,
     
   ) {
-    /*this.stor.get('id').then((val) => {
+    this.stor.get('id').then((val) => {
       this.currentU = val;
       console.log(this.currentU);
-    });*/
+    });
   }
   ngOnInit() {
     this.postkey = this.activatedRoute.snapshot.paramMap.get('postkey');
     this.writer = this.activatedRoute.snapshot.paramMap.get('writer');
     this.load();
-    /*this.stor.get('id').then((val) => {
+    this.stor.get('id').then((val) => {
       this.currentU = val;
     });
     firebase.database().ref().once('value').then((snapshot) => {
                 let c = snapshot.child(`board/${this.postkey}/userid`).val();  //id
                 this.name = c;
-      console.log(this.name);
-    });*/
+    });
    
   }
   load() {
@@ -93,9 +92,53 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
         });*/
     });
   }
+  async deletepost()
+  {
+    const al = await this.alertCtrl.create({
+      header:'확인!',
+      message: '채팅방을 삭제하시겠습니까?',
+      buttons:[
+        {
+          text:'Cancel',
+          role:'cancel',
+          cssClass:'secondary',
+          handler:(blah)=>{
+            console.log("삭제 취소");
+          }
+        },
+        {
+          text:'Okay',
+          handler:()=>{
+            console.log('채팅방 삭제');
+            this.db.object(`board/${this.postkey}`).set(null);
+            this.alertDeletepost();
+          }
+        }
+      ]
+    });
+    await al.present();
+  }
+  async alertDeletepost(){
+    const alert = await this.alertCtrl.create({
+      header:'확인!',
+      message: '게시판이 삭제되었습니다.',
+      buttons:[
+        {
+          text:'Okay',
+          role:'cancel',
+          handler:(blah)=>{
+            console.log('게시판 삭제');
+            this.router.navigateByUrl('tabs/tab3');
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
   async chatMe() {
     const alert2 = await this.alertCtrl.create({
-      header: '경고!',
+      header: '확인!',
       message: '본인이 작성한 게시글입니다',
       buttons: [
         {
@@ -109,6 +152,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     });
     await alert2.present();
   }
+
   async CreateChat(you:string){
     this.check = false;
     const alert = await this.alertCtrl.create({
