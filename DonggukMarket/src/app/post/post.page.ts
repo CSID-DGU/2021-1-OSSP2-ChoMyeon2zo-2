@@ -19,6 +19,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     styleUrls: ['./post.page.scss'],
   })
   export class PostPage implements OnInit {
+  //좋아요 추가
+  public likeState: string='unliked';
+  public iconName: string = 'heart-empty';
+  public isFavorite=false; 
   temp: any;
   public item: any;
   postkey: string;
@@ -42,28 +46,36 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     public plat:Platform,
     public activatedRoute:ActivatedRoute,
     public db:AngularFireDatabase,
-    
+    public stor:Storage,
     public alertCtrl: AlertController,
     public fs: AngularFirestoreModule,
-    
   ) {
-    /*this.stor.get('id').then((val) => {
+    this.stor.get('id').then((val) => {
       this.currentU = val;
-      console.log(this.currentU);
-    });*/
+    });
   }
   ngOnInit() {
     this.postkey = this.activatedRoute.snapshot.paramMap.get('postkey');
     this.writer = this.activatedRoute.snapshot.paramMap.get('writer');
     this.load();
-    /*this.stor.get('id').then((val) => {
+    this.stor.get('id').then((val) => {
       this.currentU = val;
+    });
+    firebase.database().ref().once('value').then((snapshot) => {
+      let c = snapshot.child(`userinfo/${this.currentU}/likelist/${this.postkey}`).val();  //자기 리스트에 좋아요가 있는지
+       if(c==null)
+       {
+        this.isFavorite=false; 
+       }
+       else
+       {
+        this.isFavorite=true; 
+       }
     });
     firebase.database().ref().once('value').then((snapshot) => {
                 let c = snapshot.child(`board/${this.postkey}/userid`).val();  //id
                 this.name = c;
-      console.log(this.name);
-    });*/
+    });
    
   }
   load() {
@@ -93,9 +105,85 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
         });*/
     });
   }
+  async deletepost()
+  {
+    const al = await this.alertCtrl.create({
+      header:'확인!',
+      message: '채팅방을 삭제하시겠습니까?',
+      buttons:[
+        {
+          text:'Cancel',
+          role:'cancel',
+          cssClass:'secondary',
+          handler:(blah)=>{
+            console.log("삭제 취소");
+          }
+        },
+        {
+          text:'Okay',
+          handler:()=>{
+            console.log('채팅방 삭제');
+            this.db.object(`board/${this.postkey}`).set(null);
+            this.alertDeletepost();
+          }
+        }
+      ]
+    });
+    await al.present();
+  }
+  async alertDeletepost(){
+    const alert = await this.alertCtrl.create({
+      header:'확인!',
+      message: '게시판이 삭제되었습니다.',
+      buttons:[
+        {
+          text:'Okay',
+          role:'cancel',
+          handler:(blah)=>{
+            console.log('게시판 삭제');
+            this.router.navigateByUrl('tabs/tab3');
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+    favoritePost() {
+      if(!this.currentU){
+        this.alertCtrl.create({
+          header:'',
+          message: '로그인 후 이용해주세요',
+          buttons:[{
+            text:'확인',
+            role: 'cancel'
+          }]
+        }).then(alertEI=>{
+          alertEI.present();
+        });
+        this.router.navigateByUrl('login');
+      }
+      else{
+        this.isFavorite = true;
+      firebase.database().ref().once('value').then((snapshot) => {
+                  var likeCount = snapshot.child(`board/${this.postkey}/like`).val(); // 좋아요 수
+                  likeCount = likeCount + 1;
+                  this.db.object(`board/${this.postkey}/like`).set(likeCount);
+                  this.db.object(`userinfo/${this.currentU}/likelist/${this.postkey}`).set(this.postkey);        
+        });
+      }
+    }
+    unfavoritePost() {
+        this.isFavorite = false;
+       firebase.database().ref().once('value').then((snapshot) => {
+        var likeCount = snapshot.child(`board/${this.postkey}/like`).val(); // 좋아요 수
+        likeCount = likeCount - 1;
+        this.db.object(`board/${this.postkey}/like`).set(likeCount);
+        this.db.object(`userinfo/${this.currentU}/likelist/${this.postkey}`).set(null);        
+              });
+    }
   async chatMe() {
     const alert2 = await this.alertCtrl.create({
-      header: '경고!',
+      header: '확인!',
       message: '본인이 작성한 게시글입니다',
       buttons: [
         {
@@ -109,6 +197,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     });
     await alert2.present();
   }
+
   async CreateChat(you:string){
     this.check = false;
     const alert = await this.alertCtrl.create({
