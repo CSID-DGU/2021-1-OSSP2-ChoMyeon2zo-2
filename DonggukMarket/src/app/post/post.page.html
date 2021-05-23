@@ -30,6 +30,10 @@
                     <td>
                      <h6> price: {{item.price}}</h6>  
                     </td> 
+                    <td *ngIf=" name != currentU">
+                      <ion-icon (click)="unfavoritePost()" *ngIf="isFavorite" name="heart" size="large" class="fullheart" ></ion-icon>
+                      <ion-icon (click)="favoritePost()" *ngIf="!isFavorite" name="heart-outline" size="large" class="fullheart"></ion-icon>
+                  </td>
                   </tr>
                 </table>
         </ion-item>

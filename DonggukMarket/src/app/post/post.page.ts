@@ -19,6 +19,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     styleUrls: ['./post.page.scss'],
   })
   export class PostPage implements OnInit {
+  //좋아요 추가
+  public likeState: string='unliked';
+  public iconName: string = 'heart-empty';
+  public isFavorite=false; 
   temp: any;
   public item: any;
   postkey: string;
@@ -45,11 +49,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     public stor:Storage,
     public alertCtrl: AlertController,
     public fs: AngularFirestoreModule,
-    
   ) {
     this.stor.get('id').then((val) => {
       this.currentU = val;
-      console.log(this.currentU);
     });
   }
   ngOnInit() {
@@ -58,6 +60,17 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     this.load();
     this.stor.get('id').then((val) => {
       this.currentU = val;
+    });
+    firebase.database().ref().once('value').then((snapshot) => {
+      let c = snapshot.child(`userinfo/${this.currentU}/likelist/${this.postkey}`).val();  //자기 리스트에 좋아요가 있는지
+       if(c==null)
+       {
+        this.isFavorite=false; 
+       }
+       else
+       {
+        this.isFavorite=true; 
+       }
     });
     firebase.database().ref().once('value').then((snapshot) => {
                 let c = snapshot.child(`board/${this.postkey}/userid`).val();  //id
@@ -135,7 +148,39 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     });
     await alert.present();
   }
-
+    favoritePost() {
+      if(!this.currentU){
+        this.alertCtrl.create({
+          header:'',
+          message: '로그인 후 이용해주세요',
+          buttons:[{
+            text:'확인',
+            role: 'cancel'
+          }]
+        }).then(alertEI=>{
+          alertEI.present();
+        });
+        this.router.navigateByUrl('login');
+      }
+      else{
+        this.isFavorite = true;
+      firebase.database().ref().once('value').then((snapshot) => {
+                  var likeCount = snapshot.child(`board/${this.postkey}/like`).val(); // 좋아요 수
+                  likeCount = likeCount + 1;
+                  this.db.object(`board/${this.postkey}/like`).set(likeCount);
+                  this.db.object(`userinfo/${this.currentU}/likelist/${this.postkey}`).set(this.postkey);        
+        });
+      }
+    }
+    unfavoritePost() {
+        this.isFavorite = false;
+       firebase.database().ref().once('value').then((snapshot) => {
+        var likeCount = snapshot.child(`board/${this.postkey}/like`).val(); // 좋아요 수
+        likeCount = likeCount - 1;
+        this.db.object(`board/${this.postkey}/like`).set(likeCount);
+        this.db.object(`userinfo/${this.currentU}/likelist/${this.postkey}`).set(null);        
+              });
+    }
   async chatMe() {
     const alert2 = await this.alertCtrl.create({
       header: '확인!',

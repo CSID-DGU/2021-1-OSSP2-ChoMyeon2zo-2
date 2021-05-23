@@ -101,7 +101,7 @@ export class boardpage {
      /* if (this.regisTxt.img !== '') {
         this.showImage();
      }*/
-      this.router.navigateByUrl('/tabs/tab2');
+      this.router.navigateByUrl('/tabs/tab3');
     }
   }
   }
