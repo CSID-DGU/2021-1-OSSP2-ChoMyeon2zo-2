@@ -4,11 +4,20 @@
   <ion-content class="sign_menu">
 
     <h3>회원 가입</h3>
+    <br>
     <ion-item>
       <ion-label class="input">이메일 : </ion-label>&nbsp;
-      <ion-input type="text" [(ngModel)]="id" placeholder="   아이디" ></ion-input>
+      <ion-input type="text" [(ngModel)]="id" placeholder="아이디" ></ion-input>
       @
-      <ion-input type="text" [(ngModel)]="domain" placeholder="도메인 주소"></ion-input>
+      <ion-select class="input" placeholder="주소 클릭!" [(ngModel)]="domain">
+        <ion-select-option value="gmail.com">gmail.com</ion-select-option>
+        <ion-select-option value="naver.com">naver.com</ion-select-option>
+        <ion-select-option value="daum.net">daum.net</ion-select-option>
+        <ion-select-option value="dgu.ac.kr">dgu.ac.kr</ion-select-option>
+        <ion-select-option value="dongguk.edu">dongguk.edu</ion-select-option>
+        <ion-select-option value="hotmail.com">hotmail.com</ion-select-option>
+      </ion-select>
+      <ion-button color="light"  (click)="id_checkfunc()" >체크</ion-button>
     </ion-item>
 
     <br>
@@ -21,6 +30,13 @@
     <ion-item>
       <ion-label class="input">이름 :</ion-label>
       <ion-input type="text" [(ngModel)]="name" class="input"></ion-input>
+    </ion-item>
+    
+    <br>
+    <ion-item>
+      <ion-label class="input">닉네임 :</ion-label>
+      <ion-input type="text" [(ngModel)]="nickname" class="input"></ion-input>
+      <ion-button color="light"  (click)="nickname_checkfunc()" >체크</ion-button>
     </ion-item>
 
     <br>
