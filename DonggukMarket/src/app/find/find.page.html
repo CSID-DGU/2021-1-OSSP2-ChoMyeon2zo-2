@@ -4,16 +4,17 @@
   <div class="hr"></div>
 
   <ion-content class="log_title2">
-    <br>
+
     <ion-list>
       <ion-item>
         <ion-label stacked> 이름 :</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text"[(ngModel)]="name" ></ion-input>
       </ion-item>
     </ion-list>
-   <br><br><br>
+   <br>
+   <center><p class = "short">&nbsp;&nbsp;회원가입시 입력한 이름을 입력하세요.</p></center>
     <section>
-      <ion-button item-right color="light" expand="block">ID 찾기</ion-button>
+      <ion-button item-right color="light" expand="block" (click)="findemail()">이메일 찾기</ion-button>
     </section>
   </ion-content>
 
@@ -22,18 +23,20 @@
   <ion-content class="log_title">
     <ion-list>
       <ion-item>
-        <ion-label stacked> 이름 : </ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-label stacked> 이메일 :</ion-label>
+        <ion-input type="text" [(ngModel)]="email"></ion-input>
       </ion-item>
-    
-      <ion-item>
-        <ion-label stacked> &nbsp; ID :</ion-label>
-        <ion-input type="text"></ion-input>
-      </ion-item>
+
     </ion-list>
-   <br><br>
+   <br>
     <section>
-      <ion-button item-right color="light" expand="block">PW 찾기</ion-button>
+      <center>
+      <p class = "short">&nbsp;&nbsp;이메일을 입력한 뒤 비밀번호 찾기</p>
+      <p class = "short">&nbsp;&nbsp;혹은 초기화 버튼을 눌러주세요</p>
+    </center>
+      <ion-button item-right color="light" expand="block" (click)="resetpw()">비밀번호 찾기</ion-button>
+      <p> </p>
+      <ion-button item-right color="light" expand="block" (click)="sendMail()">비밀번호 초기화</ion-button>
     </section>
    
   </ion-content>
