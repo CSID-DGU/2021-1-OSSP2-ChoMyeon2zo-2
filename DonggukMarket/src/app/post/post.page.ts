@@ -25,6 +25,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   public isFavorite=false; 
   temp: any;
   public item: any;
+  public writerinfo: any; 
   postkey: string;
   writer: string;
   headert: string;
@@ -62,7 +63,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
       this.currentU = val;
     });
     firebase.database().ref().once('value').then((snapshot) => {
-      let c = snapshot.child(`userinfo/${this.currentU}/likelist/${this.postkey}`).val();  //자기 리스트에 좋아요가 있는지
+      let c = snapshot.child(`userinfo/${this.currentU}/like_list/${this.postkey}`).val();  //자기 리스트에 좋아요가 있는지
        if(c==null)
        {
         this.isFavorite=false; 
@@ -95,15 +96,15 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
         else{
           this.headert = '살게요';
         }
-        /*this.db.list('userInfo/', ref => ref.orderByChild('userid').equalTo(this.writer)).valueChanges().subscribe(
+      /*  this.db.list('userInfo/', ref => ref.orderByChild('userid').equalTo(this.writer)).valueChanges().subscribe(
           // tslint:disable-next-line:no-shadowed-variable
           data => {
             if (data.length !== 1) { return; } // TODO: Error exception
-            let writerInfo;
-            writerInfo = data[0]; 
+            this.writerinfo = data; 
            // document.getElementById('writerimg').setAttribute('src', writerInfo.userpic);
         });*/
     });
+
   }
   async deletepost()
   {
@@ -168,7 +169,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
                   var likeCount = snapshot.child(`board/${this.postkey}/like`).val(); // 좋아요 수
                   likeCount = likeCount + 1;
                   this.db.object(`board/${this.postkey}/like`).set(likeCount);
-                  this.db.object(`userinfo/${this.currentU}/likelist/${this.postkey}`).set(this.postkey);        
+                  this.db.object(`userinfo/${this.currentU}/like_list/${this.postkey}`).set(this.postkey);        
         });
       }
     }
@@ -178,7 +179,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
         var likeCount = snapshot.child(`board/${this.postkey}/like`).val(); // 좋아요 수
         likeCount = likeCount - 1;
         this.db.object(`board/${this.postkey}/like`).set(likeCount);
-        this.db.object(`userinfo/${this.currentU}/likelist/${this.postkey}`).set(null);        
+        this.db.object(`userinfo/${this.currentU}/like_list/${this.postkey}`).set(null);        
               });
     }
   async chatMe() {
@@ -199,6 +200,20 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   }
 
   async CreateChat(you:string){
+    if(!this.currentU){
+      this.alertCtrl.create({
+        header:'',
+        message: '로그인 후 이용해주세요',
+        buttons:[{
+          text:'확인',
+          role: 'cancel'
+        }]
+      }).then(alertEI=>{
+        alertEI.present();
+      });
+      this.router.navigateByUrl('login');
+    }
+    else{
     this.check = false;
     const alert = await this.alertCtrl.create({
         header: '확인!',
@@ -279,6 +294,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     });
     await alert.present();
   }
+}
 
 
 }

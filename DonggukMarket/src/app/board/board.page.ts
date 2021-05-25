@@ -6,7 +6,7 @@ import {AngularFireDatabase}from 'angularfire2/database';
 //import { Camera } from '@ionic-native/camera/ngx';
 import {Storage} from '@ionic/storage'
 //import firebase from 'firebase/app';
-//import *as firebase from 'firebase'
+import *as firebase from 'firebase'
 import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/database'
@@ -27,8 +27,10 @@ export class boardpage {
   public price: string=''; 
   public textInput: string=''; 
   public like: number=0; 
-
   public postkey;
+  public boardnick: string=''; 
+  public boardmajor: string='';
+  public boardnickname: string='';
   regisBoard={
     userid:'',
     category:'',
@@ -39,8 +41,8 @@ export class boardpage {
     postkey:'',
     img:'',
     time:'',
-    like:0 
-    
+    like:0 ,
+    boardnick:'',
   }
   constructor(
     public stor:Storage,
@@ -53,7 +55,10 @@ export class boardpage {
     this.stor.get('id').then((val)=>{
       this.userid=val;
     });
-     console.log(this.userid);
+    firebase.database().ref().once('value').then((snapshot) => {
+      this.boardmajor = snapshot.child(`userinfo/${this.userid}/major`).val();  //전공
+      this.boardnickname=snapshot.child(`userinfo/${this.userid}/nickname`).val(); //닉네임
+       });
   }
   ngOnInit() {
   }
@@ -86,6 +91,7 @@ export class boardpage {
       });
       return 0;
     } else {
+      
       this.regisBoard.userid= this.userid;
       this.regisBoard.category=this.category;
       this.regisBoard.type=this.type;
@@ -96,6 +102,7 @@ export class boardpage {
       this.regisBoard.img='assets/main_img.png';
       this.regisBoard.postkey = String(this.postkey);
       this.regisBoard.like=0; 
+      this.regisBoard.boardnick=this.boardmajor+" "+this.boardnickname;
       this.db.object(`board/${this.postkey}`).set(this.regisBoard);
       alert('글이 등록되었습니다.');
      /* if (this.regisTxt.img !== '') {
