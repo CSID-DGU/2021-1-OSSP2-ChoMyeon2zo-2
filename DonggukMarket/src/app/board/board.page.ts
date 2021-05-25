@@ -12,6 +12,7 @@ import 'firebase/auth'
 import 'firebase/database'
 import 'firebase/storage'
 import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
+import { boardpageRoutingModule } from './board-routing.module';
 
 @Component({
   selector: 'app-board',
@@ -31,6 +32,7 @@ export class boardpage {
   public boardnick: string=''; 
   public boardmajor: string='';
   public boardnickname: string='';
+  
   regisBoard={
     userid:'',
     category:'',
@@ -40,9 +42,9 @@ export class boardpage {
     textInput:'',
     postkey:'',
     img:'',
-    time:'',
     like:0 ,
     boardnick:'',
+    time:''
   }
   constructor(
     public stor:Storage,
@@ -91,7 +93,14 @@ export class boardpage {
       });
       return 0;
     } else {
-      
+      let today=new Date();
+      let year=today.getFullYear();
+      let month=today.getMonth();
+      let day=today.getDate();
+      let hours=today.getHours();
+      let minutes = today.getMinutes();
+      let seconds= today.getSeconds();
+      let bt=year+'.'+month+'.'+day+'.'+hours+'.'+minutes+'.'+seconds;
       this.regisBoard.userid= this.userid;
       this.regisBoard.category=this.category;
       this.regisBoard.type=this.type;
@@ -103,6 +112,7 @@ export class boardpage {
       this.regisBoard.postkey = String(this.postkey);
       this.regisBoard.like=0; 
       this.regisBoard.boardnick=this.boardmajor+" "+this.boardnickname;
+      this.regisBoard.time=bt;
       this.db.object(`board/${this.postkey}`).set(this.regisBoard);
       alert('글이 등록되었습니다.');
      /* if (this.regisTxt.img !== '') {
