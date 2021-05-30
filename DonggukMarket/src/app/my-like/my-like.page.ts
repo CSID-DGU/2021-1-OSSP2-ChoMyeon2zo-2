@@ -5,8 +5,6 @@ import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import * as firebase from 'firebase/app';
-import { AngularFireDatabase } from 'angularfire2/database';
-import { collectExternalReferences } from '@angular/compiler';
 
 let _this;
 @Component({
@@ -16,13 +14,9 @@ let _this;
 })
 export class MyLikePage implements OnInit {
   public userid : string;
-  public postkey: string;
-  // public titleInput:string="";
-  
+  public postkey: string;  
   public writer: string;
-  // segment:string;
   public items=[];
-  public temp=[];    
 
   constructor(      
     public stor: Storage,
