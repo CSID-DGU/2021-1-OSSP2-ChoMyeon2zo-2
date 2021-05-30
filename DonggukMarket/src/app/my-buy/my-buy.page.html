@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="/tabs/tab3"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="height: 50px;">
+      <b>구매 내역</b>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-col *ngFor="let item of items" col-12 no-padding>
+    <ion-card (click)="getPost(item)">
+      <ion-card-content >
+        {{item.title}}     
+      </ion-card-content>
+    </ion-card>
+  </ion-col>
+</ion-content>

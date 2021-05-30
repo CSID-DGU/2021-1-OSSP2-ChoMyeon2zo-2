@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="" defaultHref="/tabs/tab5"></ion-back-button>
+      <ion-back-button text="" defaultHref="/my-profile"></ion-back-button>
     </ion-buttons>
     <ion-title style="height: 50px;">
       <b>My Profile</b>
@@ -12,7 +12,7 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">My Page</ion-title>
+      <ion-title size="large">My Profile</ion-title>
     </ion-toolbar>
   </ion-header>
   <div>
@@ -20,16 +20,16 @@
       <ion-card>
         <ion-card-content>
           <ion-item>
-            <ion-label><b>{{nickname}}</b></ion-label> <!-- 유저명 -->   
-            <ion-badge style="float: right;" fill="clear" color="light" shape="round" size="small">{{major}}</ion-badge>  <!--단과대학 --> 
-            <ion-badge style="float: right;" fill="clear" color="success"  shape="round" size="small">{{check}}</ion-badge><br><br>  <!--재학생인증 유무 --> 
-          </ion-item>
-          <ion-item>
-            {{email}}  <!-- 유저 이메일 -->
-          </ion-item>
+              <ion-label><b>{{nickname}}</b></ion-label> <!-- 유저명 -->    
+              <ion-badge style="float: right;" fill="clear" color="light" shape="round" size="small">{{major}}</ion-badge>  <!--단과대학 --> 
+              <ion-badge style="float: right;" fill="clear" color="success"  shape="round" size="small">{{check}}</ion-badge><br><br>  <!--재학생인증 유무 --> 
+            </ion-item>
+            <ion-item>
+              {{email}}  <!-- 유저 이메일 -->
+            </ion-item>
           <ion-item>
             <div id="text">
-              <ion-button [routerLink]="['/profile-modify']" color="medium" expand="full">프로필 수정</ion-button>
+              <ion-button color="medium" expand="full" (click)="modify()">프로필 수정완료</ion-button>
             </div> 
           </ion-item>
           <ion-item>
@@ -52,7 +52,7 @@
           </ion-item>
           <ion-item>
             <ion-label><b>학과</b></ion-label>
-                {{major}} <!-- 유저 학과 -->
+            <ion-input [(ngModel)]="majorInput" placeholder = {{major}} style="text-align: right;"></ion-input> <!-- 유저 학과 -->
           </ion-item>
           <ion-item>
             <ion-label><b>이메일</b></ion-label>
@@ -60,16 +60,11 @@
           </ion-item>
           <ion-item>
             <ion-label><b>전화번호</b></ion-label>
-                {{phone}} <!-- 유저 전화번호 -->
+            <ion-input [(ngModel)]="phoneInput" placeholder = {{phone}} style="text-align: right;"></ion-input> <!-- 유저 전화번호 -->
           </ion-item>
           <ion-item>
             <ion-label><b>신뢰도</b></ion-label>
-                <div *ngIf = "trade_list != 0">
-                  {{trade_credit}}/{{trade_list}}  <!-- 신뢰도 -->
-                </div>
-                <div *ngIf = "trade_list == 0">
-                  {{trade_credit}}  <!-- 신뢰도 -->
-                </div>
+                {{trade_credit}} <!-- 신뢰도 -->
           </ion-item>
         </ion-card-content>
       </ion-card>

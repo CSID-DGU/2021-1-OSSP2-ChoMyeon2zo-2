@@ -25,7 +25,7 @@
       <ion-card>
         <ion-card-content>
           <ion-item>
-            <ion-label><b>{{name}}</b></ion-label> <!-- 유저명 -->   
+            <ion-label><b>{{nickname}}</b></ion-label> <!-- 유저명 -->   
             <ion-badge style="float: right;" fill="clear" color="light" shape="round" size="small">{{major}}</ion-badge>  <!--단과대학 --> 
             <ion-badge style="float: right;" fill="clear" color="success"  shape="round" size="small">{{check}}</ion-badge><br><br>  <!--재학생인증 유무 --> 
         </ion-item>
@@ -34,7 +34,7 @@
         </ion-item>
           <ion-item>
             <div id="text">
-              <ion-button [routerLink]="['/my-profile']" color="medium" expand="full" (click)="profile()">프로필 보기</ion-button>
+              <ion-button [routerLink]="['/my-profile']" color="medium" expand="full">프로필 보기</ion-button>
             </div> 
           </ion-item>
           <ion-item>
@@ -49,19 +49,19 @@
         <ion-card-content>
           <ion-item>
             <ion-buttons slot="end" size="large">
-              <ion-icon name="bag-remove-outline" (click)="toText()"></ion-icon>
+              <ion-icon name="bag-remove-outline" (click)="toSell()"></ion-icon>
             </ion-buttons>
              판매 내역
           </ion-item>
           <ion-item>
             <ion-buttons slot="end" size="large">
-              <ion-icon name="bag-add-outline" (click)="toLike()"></ion-icon>
+              <ion-icon name="bag-add-outline" (click)="toBuy()"></ion-icon>
             </ion-buttons>
               구매 내역
           </ion-item>
           <ion-item>
             <ion-buttons slot="end" size="large">
-              <ion-icon name="bag-handle-outline" (click)="toScrap()"></ion-icon>
+              <ion-icon name="bag-handle-outline" (click)="toBorrow()"></ion-icon>
             </ion-buttons>
               대여 내역
           </ion-item>
@@ -71,13 +71,7 @@
             </ion-buttons>
               관심 목록
           </ion-item>
-        <ion-item>
-          <ion-buttons slot="end" size="large">
-            <ion-icon name="search-outline" (click)="toWatch()"></ion-icon>
-          </ion-buttons>
-            최근에 본 목록
-        </ion-item>
-      </ion-card-content>
+        </ion-card-content>
       </ion-card>
   </div>
   </div>

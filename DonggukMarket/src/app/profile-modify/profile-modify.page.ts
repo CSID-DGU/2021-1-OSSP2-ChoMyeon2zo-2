@@ -1,20 +1,25 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import * as firebase from 'firebase/app';
 import { validateEventsArray } from '@angular/fire/firestore';
-import { ActivatedRoute } from '@angular/router';
+import {AngularFireStorage}from 'angularfire2/storage';
+import {AngularFireDatabase}from 'angularfire2/database';
+import 'firebase/firestore'
+import 'firebase/auth'
+import 'firebase/database'
+import 'firebase/storage'
 
 let _this;
 @Component({
-  selector: 'app-my-profile',
-  templateUrl: './my-profile.page.html',
-  styleUrls: ['./my-profile.page.scss'],
+  selector: 'app-profile-modify',
+  templateUrl: './profile-modify.page.html',
+  styleUrls: ['./profile-modify.page.scss'],
 })
-export class MyProfilePage {
+export class ProfileModifyPage {
   public userid:string="";
   public name:string="";
   public email:string="";
@@ -26,21 +31,25 @@ export class MyProfilePage {
   public nickname:string="";
   public phone:number=0;
   public trade_credit:number=0;
-  public trade_list:number=0;
+
+  public majorInput: string=''; 
+  public phoneInput: string='';
+
   constructor(
     public navCtrl: NavController, 
     // private alertCtrl: AlertController,
     public fAuth: AngularFireAuth,
+    private alertCtrl:AlertController,
+    public db:AngularFireDatabase,
     public stor: Storage,
-    public router: Router,
-    private route: ActivatedRoute
+    public router: Router
   ) {_this=this; var a;}
 
   ngOnInit(){
     this.stor.get('id').then((val) => {
       console.log('val = '+val);
       this.userid = val;
-      firebase.database().ref().child(`userinfo/${this.userid}`).on('value', function(data){
+      firebase.database().ref().child(`userinfo/${this.userid}`).once('value', function(data){
         var user = data.val();
         _this.name=user['name'];
         _this.email=user['email'];
@@ -50,7 +59,6 @@ export class MyProfilePage {
         _this.school=user['school'];
         _this.trade_credit=user['trade_credit'];
         _this.phone=user['phone'];
-        _this.trade_list=user['trade_list'];
         _this.set();
        })
      });
@@ -58,8 +66,11 @@ export class MyProfilePage {
 
   set(){
     this.name=_this.name;
+    this.nickname=_this.nickname;
+    this.school=_this.school;
     this.email=_this.email;
     this.major=_this.major;
+    this.phone=_this.phone;
     console.log('credit = '+_this.credit);
     if(_this.credit==false){
       this.check="재학생 미인증";
@@ -68,10 +79,35 @@ export class MyProfilePage {
       this.check="재학생 인증";
     }
     console.log('set name='+_this.name+' '+this.name);
-
   }
   ionViewDidLeave(){
-    console.log('leave?????');
+    console.log('leave');
 
   }
+
+  modify(){
+    if(this.majorInput===''||this.phoneInput===''){
+      this.alertCtrl.create({
+        header: '',
+        message: '내용을 전부 입력해주세요',
+        buttons: [{
+          text: '확인',
+          role: 'cancel'
+        }]
+      }).then(alertEI=>{
+        alertEI.present();
+      });
+      return 0;
+    } else {
+      var profileRef = firebase.database().ref(`userinfo/${this.userid}`);
+      profileRef.update({
+        phone :  this.phoneInput,
+        major :  this.majorInput
+      });
+      alert('프로필이 수정되었습니다.');
+      this.ngOnInit();
+      this.router.navigate(['/my-profile']);
+    }
+  }
+
 }
