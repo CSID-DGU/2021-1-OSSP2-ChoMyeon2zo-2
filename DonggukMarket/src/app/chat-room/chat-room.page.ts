@@ -31,6 +31,9 @@ export class ChatRoomPage implements OnInit {
     tmpYou:string;
     currentU:string;
     chatnum:number; // 몇번째 채팅내용인지 찾기 위한 변수
+
+    isfinish : boolean = false;
+    trade_credit:number=0; // 신뢰도
   
     constructor(
       public fs:AngularFirestoreModule, 
@@ -169,8 +172,33 @@ export class ChatRoomPage implements OnInit {
       await al.present();
     }
 
-    evalueReliablity(){
-    
+    async evalueReliablity(){
+      const al = await this.atrCtrl.create({
+        header:'확인!',
+        message: '거래를 완료하시겠습니까?',
+        buttons:[
+          {
+            text:'Cancel',
+            role:'cancel',
+            cssClass:'secondary',
+            handler:(blah)=>{
+              console.log("삭제 취소");
+            }
+          },{
+            text:'Okay',
+            handler: () => {
+              console.log('Confirm Okay');
+            this.router.navigate(['trade',this.you]);
+
+
+            let strArray = this.you;    
+            this.db.object(`userinfo/${strArray}/trade_credit`).set(this.trade_credit);
+            // you id랑 같은 아이디에서 신뢰도 가져오기 
+           }
+         }
+        ]
+      });
+      await al.present();
     }
   }
 
