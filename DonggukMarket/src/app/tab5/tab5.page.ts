@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import * as firebase from 'firebase/app';
@@ -19,26 +20,29 @@ export class Tab5Page {
   public credit:string="";
   public num:number=0;
   public check:string="";
+  public nickname:string="";
   constructor(
     public navCtrl: NavController, 
     private alertCtrl: AlertController,
     public fAuth: AngularFireAuth,
-    public stor: Storage
+    public stor: Storage,
+    public router: Router
   ) {_this=this; var a;}
 
   change(){
     this.stor.get('id').then((val) => {
       console.log('val = '+val);
       this.userid = val;
-     });
-     firebase.database().ref().child(`userinfo/${this.userid}`).once('value', function(data){
-      console.log(data.val());
-      var user = data.val();
-      _this.name=user['name'];
-      _this.email=user['email'];
-      _this.major=user['major'];
-      _this.credit=user['student_credit'];
-      _this.set();
+      firebase.database().ref().child(`userinfo/${this.userid}`).once('value', function(data){
+        console.log(data.val());
+        var user = data.val();
+        _this.name=user['name'];
+        _this.email=user['email'];
+        _this.major=user['major'];
+        _this.nickname=user['nickname'];
+        _this.credit=user['student_credit'];
+        _this.set();
+       });
      });
   }
 
@@ -46,6 +50,7 @@ export class Tab5Page {
     this.name=_this.name;
     this.email=_this.email;
     this.major=_this.major;
+    this.nickname=_this.nickname;
     console.log('credit = '+_this.credit);
     if(_this.credit==false){
       this.check="재학생 미인증";
@@ -59,7 +64,6 @@ export class Tab5Page {
     this.num++;
     this.ngOnInit();
   }
-  
   logout(){
     this.fAuth.auth.signOut().then((result)=>{
       this.stor.set('id',null);
@@ -88,18 +92,18 @@ export class Tab5Page {
   }
   ionViewDidLeave(){
     console.log('leave');
-    this.num=0;
-    this.userid="";
-    this.name="";
-    this.email="";
-    this.major="";
-    this.check="";
 
-    _this.userid="";
-    _this.name="";
-    _this.email="";
-    _this.major="";
-    _this.check="";
-    _this.userid="";
+  }
+  toSell() {
+    this.router.navigateByUrl('/my-sell');
+  }
+  toBuy() {
+    this.router.navigateByUrl('/my-buy');
+  }
+  toBorrow() {
+    this.router.navigateByUrl('/my-borrow');
+  }
+  toLike() {
+    this.router.navigateByUrl('/my-like');
   }
 }

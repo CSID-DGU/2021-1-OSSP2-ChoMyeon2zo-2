@@ -342,7 +342,9 @@ export class SignPage implements OnInit {
     
   
     this.db.object(`userinfo/${strArray}/trade_credit`).set(this.trade_credit); //신뢰도
-    this.db.object(`userinfo/${strArray}/trade_list/0`).set(0);//거래한 사람
+    this.db.object(`userinfo/${strArray}/trade_list/group/0`).set(0);//공동구매
+    this.db.object(`userinfo/${strArray}/trade_list/rent/0`).set(0);//대여
+    this.db.object(`userinfo/${strArray}/trade_list/sell/0`).set(0);//판매
     this.db.object(`userinfo/${strArray}/like_list/0`).set(0);//관심 목록
 
     //parameter to student_check(id)
