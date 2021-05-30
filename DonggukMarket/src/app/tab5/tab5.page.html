@@ -47,27 +47,27 @@
     <br>
       <ion-card>
         <ion-card-content>
-          <ion-item>
+          <ion-item (click)="toSell()">
             <ion-buttons slot="end" size="large">
-              <ion-icon name="bag-remove-outline" (click)="toSell()"></ion-icon>
+              <ion-icon name="bag-remove-outline"></ion-icon>
             </ion-buttons>
              판매 내역
           </ion-item>
-          <ion-item>
+          <ion-item (click)="toBuy()">
             <ion-buttons slot="end" size="large">
-              <ion-icon name="bag-add-outline" (click)="toBuy()"></ion-icon>
+              <ion-icon name="bag-add-outline"></ion-icon>
             </ion-buttons>
-              구매 내역
+              공동구매 내역
           </ion-item>
-          <ion-item>
+          <ion-item (click)="toBorrow()">
             <ion-buttons slot="end" size="large">
-              <ion-icon name="bag-handle-outline" (click)="toBorrow()"></ion-icon>
+              <ion-icon name="bag-handle-outline"></ion-icon>
             </ion-buttons>
               대여 내역
           </ion-item>
-          <ion-item>
+          <ion-item (click)="toLike()">
             <ion-buttons slot="end" size="large">
-              <ion-icon name="heart-outline" (click)="toLike()"></ion-icon>
+              <ion-icon name="heart-outline"></ion-icon>
             </ion-buttons>
               관심 목록
           </ion-item>

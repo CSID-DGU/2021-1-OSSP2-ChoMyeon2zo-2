@@ -14,7 +14,12 @@ const routes: Routes = [
   { path: 'profile-modify',loadChildren: () => import('./profile-modify/profile-modify.module').then( m => m.ProfileModifyPageModule)},
   { path:'board',loadChildren: () => import('./board/board.module').then(m =>m.boardPageModule)},
   { path:'chat-room/:you',loadChildren: () => import('./chat-room/chat-room.module').then(m =>m.ChatRoomPageModule)},
-  { path:'post/:postkey/:writer',loadChildren: () => import('./post/post.module').then(m =>m.PostPageModule)}
+  { path:'post/:postkey/:writer',loadChildren: () => import('./post/post.module').then(m =>m.PostPageModule)},
+
+  { path:'my-borrow',loadChildren: () => import('./my-borrow/my-borrow.module').then(m =>m.MyBorrowPageModule)},
+  { path:'my-buy',loadChildren: () => import('./my-buy/my-buy.module').then(m =>m.MyBuyPageModule)},
+  { path:'my-sell',loadChildren: () => import('./my-sell/my-sell.module').then(m =>m.MySellPageModule)},
+  { path:'my-like',loadChildren: () => import('./my-like/my-like.module').then(m =>m.MyLikePageModule)},
 
 ];
 @NgModule({

@@ -21,6 +21,7 @@ export class Tab5Page {
   public num:number=0;
   public check:string="";
   public nickname:string="";
+  public items=[];
   constructor(
     public navCtrl: NavController, 
     private alertCtrl: AlertController,
@@ -33,7 +34,7 @@ export class Tab5Page {
     this.stor.get('id').then((val) => {
       console.log('val = '+val);
       this.userid = val;
-      firebase.database().ref().child(`userinfo/${this.userid}`).once('value', function(data){
+      firebase.database().ref().child(`userinfo/${this.userid}`).on('value', function(data){
         console.log(data.val());
         var user = data.val();
         _this.name=user['name'];

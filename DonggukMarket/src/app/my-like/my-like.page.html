@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="" defaultHref="/tabs/tab3"></ion-back-button>
+      <ion-back-button text="" defaultHref="/tabs/tab5"></ion-back-button>
     </ion-buttons>
     <ion-title style="height: 50px;">
       <b>관심 목록</b>
@@ -9,15 +9,19 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-col *ngFor="let item of temp2" col-12 no-padding>
-    <ion-card (click)="getPost(item)"  >
-      <img src="{{item.img}}" width="100px" height="150px"/>
-      <ion-card-content >
-      
-                {{item.title}}
-              
-      </ion-card-content>
-    </ion-card>
+<ion-content >
+  <ion-col *ngFor="let item of items;" col-12 no-padding>
+      <ion-item (click)="getPost(item)" class="card" >
+          <ion-img src="{{item.img}}" style='width:50%;height:50%'></ion-img>
+          <ion-label>
+            <h2>TITLE : {{item.titleInput}}</h2>
+            <p>{{item.boardnick}}</p>
+            <p>PRICE : {{item.price}}</p>
+          </ion-label>
+          <ion-note slot="end">
+            <ion-icon name="heart" color="danger"></ion-icon>
+            {{item.like}}
+          </ion-note>
+    </ion-item>
   </ion-col>
 </ion-content>
