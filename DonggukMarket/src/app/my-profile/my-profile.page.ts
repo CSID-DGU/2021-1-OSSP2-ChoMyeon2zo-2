@@ -51,6 +51,16 @@ export class MyProfilePage {
         _this.trade_credit=user['trade_credit'];
         _this.phone=user['phone'];
         _this.trade_list=user['trade_list'];
+
+        _this.trade_credit *= 1;
+        _this.trade_count = Object.keys(_this.trade_list).length;
+
+        if(_this.trade_count !== 0){
+          _this.trage_credit_score = _this.trade_credit/_this.trade_count
+        }
+        else{
+          _this.trage_credit_score = 0
+        }
         _this.set();
        })
      });
@@ -71,7 +81,7 @@ export class MyProfilePage {
 
   }
   ionViewDidLeave(){
-    console.log('leave?????');
+    console.log('leave');
 
   }
 }

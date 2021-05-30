@@ -64,12 +64,7 @@
           </ion-item>
           <ion-item>
             <ion-label><b>신뢰도</b></ion-label>
-                <div *ngIf = "trade_list != 0">
-                  {{trade_credit}}/{{trade_list}}  <!-- 신뢰도 -->
-                </div>
-                <div *ngIf = "trade_list == 0">
-                  {{trade_credit}}  <!-- 신뢰도 -->
-                </div>
+                {{trage_credit_score}}
           </ion-item>
         </ion-card-content>
       </ion-card>
