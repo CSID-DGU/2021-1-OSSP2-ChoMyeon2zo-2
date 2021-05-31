@@ -34,10 +34,11 @@ export class MyLikePage implements OnInit {
         _this.LikePost = Object.keys(user);
 
         for(let i=0;i<_this.LikePost.length;i++){
-          firebase.database().ref().child(`board/${user[_this.LikePost[i]]}`).once('value', function(data){
-            _this.items.push(data.val());
-            console.log(_this.items[i]);
-          });
+          if(_this.LikePost[i] !== '0'){
+            firebase.database().ref().child(`board/${user[_this.LikePost[i]]}`).once('value', function(data){
+              _this.items.push(data.val());
+            });
+          }
         }
        });
      });
