@@ -60,6 +60,9 @@ export class Tab2Page {
     goCreatePost() {
       this.router.navigate(['board']);
     }
+    goCategory() {
+      this.router.navigate(['category']);
+    }
     getPost(item: any) {
       this.postkey = item.postkey;
       this.writer = item.userid;
