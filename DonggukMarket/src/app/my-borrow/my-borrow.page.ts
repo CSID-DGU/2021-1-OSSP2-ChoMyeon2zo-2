@@ -36,10 +36,7 @@ export class MyBorrowPage implements OnInit {
           firebase.database().ref().child(`board/${user[_this.TradePost[i]]}`).once('value', function(data){
             var stock = data.val();
             console.log("%%%%%%"+_this.items[i]);
-            if(stock['type']==="대여"){
-              _this.items.push(stock);
-              console.log(_this.items[i]);
-            }
+            _this.items.push(stock);
           });
         }
        });
