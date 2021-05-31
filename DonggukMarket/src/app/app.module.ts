@@ -13,7 +13,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import{FIREBASE_CONFIG} from './environment'
 import{IonicStorageModule} from '@ionic/storage'
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-
+import { NgProgressModule } from '@ngx-progressbar/core';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     AngularFireDatabaseModule,
     IonicStorageModule,
     IonicStorageModule.forRoot(),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    NgProgressModule
   ],
   providers: [
     Camera,

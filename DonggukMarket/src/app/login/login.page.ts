@@ -45,7 +45,7 @@ export class LoginPage implements OnInit {
       const studentcheck = (await firebase.database().ref().child(`userinfo/${id}`).once('value')).val();
       console.log(studentcheck.student_credit);
       console.log('id = '+id);
-      if(studentcheck.student_credit!=false) {
+      if(studentcheck.student_credit==false) {
         const alert = await this.alertController.create({
           message: '학생증 인증이 완료되지 않아서 로그인이 불가합니다.',
           buttons: ['닫기']

@@ -27,6 +27,7 @@ export class SignPage implements OnInit {
   domain:string='';
   email:string='';//이메일주소
   school:string='';
+  student_number:string='';
 
   pressed:boolean=false;
   nicknamepressed:boolean=false;
@@ -44,7 +45,49 @@ export class SignPage implements OnInit {
     private router:Router
   ) {_this=this; _this.phone_check=false;}
 
+  async clear(){
+    this.password=null;
+    _this.password=null;
+    this.id=null;
+    _this.id=null;
+    this.nickname=null;
+    _this.nickname=null;
+    this.name=null;
+    _this.name=null;
+    this.major=null;
+    _this.major=null;
+    this.phone=null;
+    _this.phone=null;
+    this.phone_check=false;
+    _this.phone_check=false;
+    this.student_credit=false;
+    _this.student_credit=false;
+    this.trade_credit=0;
+    _this.trade_credit=0;
+    this.domain=null;
+    _this.domain=null;
+    this.email=null;
+    _this.email=null;
+    this.school=null;
+    _this.school=null;
+    this.student_number=null;
+    _this.student_number=null;
+    this.pressed=false;
+    this.nicknamepressed=false;
+    this.idpressed=false;
+    this.id_check=true;
+    this.nickname_check=true;
+    this.smsphone='';
+    _this.pressed=false;
+    _this.nicknamepressed=false;
+    _this.idpressed=false;
+    _this.id_check=true;
+    _this.nickname_check=true;
+    _this.smsphone='';
+  }
+  
   ngOnInit() {
+    this.clear();
     this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
   }
   async createEmail(){
@@ -339,7 +382,7 @@ export class SignPage implements OnInit {
     this.db.object(`userinfo/${strArray}/email`).set(this.email);
     this.db.object(`userinfo/${strArray}/school`).set(this.school);
     this.db.object(`userinfo/${strArray}/phone_check`).set(this.phone_check);
-    
+    this.db.object(`userinfo/${strArray}/student_number`).set(this.student_number);
   
     this.db.object(`userinfo/${strArray}/trade_credit`).set(this.trade_credit); //신뢰도
     this.db.object(`userinfo/${strArray}/trade_list/group/0`).set(0);//공동구매
@@ -351,7 +394,10 @@ export class SignPage implements OnInit {
     let info: NavigationExtras = {
       state: {
         id:this.id,
-        email:this.email
+        name:this.name,
+        student_number:this.student_number,
+        school:this.school,
+        phone:this.phone
       } 
     };
 
@@ -364,6 +410,7 @@ export class SignPage implements OnInit {
         buttons: [{
           text: '확인',
           handler: () => {
+            this.clear();
             this.router.navigate(['/student-check'],info);
           }
         }]
