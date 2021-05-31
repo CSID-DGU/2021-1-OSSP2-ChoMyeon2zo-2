@@ -105,6 +105,7 @@ export class boardpage {
             this.db.object(`board/${this.postkey}/img`).set(this.tmpimgurl);
           });
         }
+
   register(){
     if(!this.userid){
       this.alertCtrl.create({
@@ -150,6 +151,20 @@ export class boardpage {
       this.regisBoard.textInput=this.textInput;
       this.regisBoard.type_school=this.type+this.boardschool;
       this.postkey = new Date().getTime();
+      if(this.type==='공동구매')
+      {
+        
+        this.db.object(`userinfo/${this.userid}/trade_list/group/${this.postkey}`).set(this.postkey);  
+      }
+      else if(this.type==='판매')
+      {
+        this.db.object(`userinfo/${this.userid}/trade_list/sell/${this.postkey}`).set(this.postkey);  
+      }
+      else if(this.type==='대여')
+      {
+        console.log(this.type)
+        this.db.object(`userinfo/${this.userid}/trade_list/rent/${this.postkey}`).set(this.postkey);  
+      }
      // this.regisBoard.img='assets/main_img.png';
       this.regisBoard.postkey = String(this.postkey);
       this.regisBoard.like=0; 
