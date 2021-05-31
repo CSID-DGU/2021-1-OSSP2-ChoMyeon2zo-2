@@ -32,6 +32,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   public itemtmp: any;
   currentU: string;
   name: string;
+  tt:string;
   chattingRef: any;
   check = false; // 채팅 목록
   size: number; // 채팅 목록 수
@@ -77,6 +78,11 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
                 let c = snapshot.child(`board/${this.postkey}/userid`).val();  //id
                 this.name = c;
     });
+    firebase.database().ref().once('value').then((snapshot) => {
+      let b = snapshot.child(`board/${this.postkey}/type`).val();  
+      this.tt= b;
+      console.log(this.tt);
+      });
    
   }
   load() {
@@ -96,13 +102,14 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
         else{
           this.headert = '살게요';
         }
-      /*  this.db.list('userInfo/', ref => ref.orderByChild('userid').equalTo(this.writer)).valueChanges().subscribe(
+       this.db.list('userinfo/', ref => ref.orderByChild('id').equalTo(this.writer)).valueChanges().subscribe(
           // tslint:disable-next-line:no-shadowed-variable
           data => {
             if (data.length !== 1) { return; } // TODO: Error exception
-            this.writerinfo = data; 
-           // document.getElementById('writerimg').setAttribute('src', writerInfo.userpic);
-        });*/
+            let writerInfo;
+            writerInfo = data[0]; // 변수명 왜이래ㅋㅋ큐ㅠㅠㅠ
+           document.getElementById('writerimg').setAttribute('src', writerInfo.userpic);
+        });
     });
 
   }
