@@ -3,17 +3,20 @@
   <ion-content class="sign_menu">
     <h3>&nbsp;재학생 인증</h3>
     <br>
-    <div class="info">동국대학교 재학생 인증을 위해 학적부 이미지를 첨부해주세요</div>
+    <div class="info">학적부 이미지를 첨부해주세요<br>
+    동국대학교App-학사정보-학적관리-학적부수정
+    </div>
     
-    <br><br><br><br>
-      
-      <ion-button item-right color="light" expand="block" (click)="image()">사진 열기</ion-button>
+    <br>
+
+      <center><img style="width: 70%; height: 40%;" [src]="selectedImage" *ngIf="selectedImage"></center>
+      <ion-button item-right color="light" expand="block" (click)="selectImage()">사진 열기</ion-button>
       <p> </p>
-      <ion-button item-right color="light" expand="block" (click)="recognize()">사진 인식</ion-button>
+      <ion-button item-right color="light" expand="block" [disabled]="!selectedImage" (click)="recognizeImage()">사진 인식</ion-button>
 
       <br><br><br>
       <center>
-      <ion-button  color="light" [routerLink]="['']">회원가입 완료</ion-button>
+      <ion-button  color="light" (click)="notsign()">회원가입 중단하기</ion-button>
       </center>
   </ion-content>
 </ion-app>

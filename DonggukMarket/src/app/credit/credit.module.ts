@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { TradePageRoutingModule } from './trade-routing.module';
-import { TradePage } from './trade.page';
+import { CreditPageRoutingModule } from './credit-routing.module';
+import { CreditPage } from './credit.page';
 import { AngularFirestore } from 'angularfire2/firestore';
 
 @NgModule({
@@ -11,12 +11,12 @@ import { AngularFirestore } from 'angularfire2/firestore';
     CommonModule,
     FormsModule,
     IonicModule,
-    TradePageRoutingModule
+    CreditPageRoutingModule
   ],
-  declarations: [TradePage],
+  declarations: [CreditPage],
   providers:[AngularFirestore]
 })
-export class TradePageModule {}
+export class CreditPageModule {}
 
 
 

@@ -40,6 +40,7 @@ export class MyProfilePage {
     this.stor.get('id').then((val) => {
       console.log('val = '+val);
       this.userid = val;
+      console.log("my-profile test : "+this.userid);
       firebase.database().ref().child(`userinfo/${this.userid}`).on('value', function(data){
         var user = data.val();
         _this.name=user['name'];
@@ -51,9 +52,13 @@ export class MyProfilePage {
         _this.trade_credit=user['trade_credit'];
         _this.phone=user['phone'];
         _this.trade_list=user['trade_list'];
+        // _this.group=user['trade_list']['group'];
+
+        // console.log("tt"+_this.group[1]);
 
         _this.trade_credit *= 1;
         _this.trade_count = Object.keys(_this.trade_list).length;
+        console.log("trade length : "+_this.trade_count);
 
         if(_this.trade_count !== 0){
           _this.trage_credit_score = _this.trade_credit/_this.trade_count

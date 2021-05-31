@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>신뢰도 평가</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+        <ion-radio-group name = "tradevalue" [(ngModel)]="tradevalue">
+          <ion-list-header>
+            <ion-label>{{you}}님의 신뢰도를 평가해주세요.(5점 만점)</ion-label>
+            <div>
+              <ion-button color="primary" (click)="setTrade()" >제출 </ion-button>
+            </div>
+          </ion-list-header>
+      
+          <ion-item>
+            <ion-label>5점</ion-label>
+            <ion-radio slot="start" value=5></ion-radio>
+          </ion-item>
+      
+          <ion-item>
+            <ion-label>4점</ion-label>
+            <ion-radio slot="start" value=4></ion-radio>
+          </ion-item>
+      
+          <ion-item>
+            <ion-label>3점</ion-label>
+            <ion-radio slot="start" value=3></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>2점</ion-label>
+            <ion-radio slot="start" value=2></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>1점</ion-label>
+            <ion-radio slot="start" value=1></ion-radio>
+          </ion-item>
+
+        </ion-radio-group>
+      </ion-list>    
+  </ion-content>
+  

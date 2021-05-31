@@ -41,6 +41,12 @@
 
     <br>
     <ion-item>
+      <ion-label class="input">학번 :</ion-label>
+      <ion-input type="text" [(ngModel)]="student_number" class="input"></ion-input>
+    </ion-item>
+    
+    <br>
+    <ion-item>
       <ion-label class="input">학교:</ion-label>
           <ion-select class="input" placeholder="클릭하세요  " [(ngModel)]="school">
             <ion-select-option value="동국대학교">동국대학교 </ion-select-option>

@@ -28,19 +28,17 @@ export class MyBorrowPage implements OnInit {
   ngOnInit() {
     this.stor.get('id').then((val) => {
       this.userid = val;
-      firebase.database().ref().child(`userinfo/${this.userid}/trade_list/`).once('value', function(data){
+      firebase.database().ref().child(`userinfo/${this.userid}/trade_list/rent`).once('value', function(data){
         var user = data.val();
         _this.TradePost = Object.keys(user);
 
         for(let i=0;i<_this.TradePost.length;i++){
-          firebase.database().ref().child(`board/${user[_this.TradePost[i]]}`).once('value', function(data){
-            var stock = data.val();
-            console.log("%%%%%%"+_this.items[i]);
-            if(stock['type']==="대여"){
+          if(_this.TradePost[i] !== '0'){
+            firebase.database().ref().child(`board/${user[_this.TradePost[i]]}`).once('value', function(data){
+              var stock = data.val();
               _this.items.push(stock);
-              console.log(_this.items[i]);
-            }
-          });
+            });
+          }
         }
        });
      });
