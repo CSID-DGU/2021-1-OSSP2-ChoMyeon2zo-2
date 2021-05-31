@@ -162,7 +162,6 @@ export class boardpage {
       }
       else if(this.type==='대여')
       {
-        console.log(this.type)
         this.db.object(`userinfo/${this.userid}/trade_list/rent/${this.postkey}`).set(this.postkey);  
       }
      // this.regisBoard.img='assets/main_img.png';

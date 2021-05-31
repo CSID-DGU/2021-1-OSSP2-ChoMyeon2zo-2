@@ -28,7 +28,7 @@ export class SignPage implements OnInit {
   email:string='';//이메일주소
   school:string='';
   student_number:string='';
-
+  p_img:string='assets/profile_img.png'; //처음 프로필 사진
   pressed:boolean=false;
   nicknamepressed:boolean=false;
   idpressed:boolean=false;
@@ -383,7 +383,7 @@ export class SignPage implements OnInit {
     this.db.object(`userinfo/${strArray}/school`).set(this.school);
     this.db.object(`userinfo/${strArray}/phone_check`).set(this.phone_check);
     this.db.object(`userinfo/${strArray}/student_number`).set(this.student_number);
-  
+    this.db.object(`userinfo/${strArray}/userpic`).set(this.p_img);
     this.db.object(`userinfo/${strArray}/trade_credit`).set(this.trade_credit); //신뢰도
     this.db.object(`userinfo/${strArray}/trade_list/group/0`).set(0);//공동구매
     this.db.object(`userinfo/${strArray}/trade_list/rent/0`).set(0);//대여
