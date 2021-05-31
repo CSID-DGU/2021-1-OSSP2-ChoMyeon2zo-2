@@ -98,7 +98,6 @@ export class boardpage {
           let storageRef = firebase.storage().ref();
     // tslint:disable-next-line: prefer-const
           let imageRef = storageRef.child(`picture/${this.picname}`);
-          // console.log(imageRef.getDownloadURL());
           imageRef.getDownloadURL()
           .then((imageURI) => {
             console.log(imageURI);
@@ -156,11 +155,9 @@ export class boardpage {
       this.regisBoard.like=0; 
       this.regisBoard.boardnick=this.boardmajor+" "+this.boardnickname;
       this.regisBoard.time=bt;
+      this.showImage();
       this.db.object(`board/${this.postkey}`).set(this.regisBoard);
       alert('글이 등록되었습니다.');
-     if (this.regisBoard.img !== '') {
-        this.showImage();
-     }
       this.router.navigateByUrl('/tabs/tab3');
     }
   }
