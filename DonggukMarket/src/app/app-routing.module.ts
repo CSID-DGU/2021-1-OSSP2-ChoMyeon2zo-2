@@ -20,7 +20,7 @@ const routes: Routes = [
   { path:'my-buy',loadChildren: () => import('./my-buy/my-buy.module').then(m =>m.MyBuyPageModule)},
   { path:'my-sell',loadChildren: () => import('./my-sell/my-sell.module').then(m =>m.MySellPageModule)},
   { path:'my-like',loadChildren: () => import('./my-like/my-like.module').then(m =>m.MyLikePageModule)},
-  { path:'trade/:you',loadChildren: () => import('./credit/credit.module').then(m =>m.CreditPageModule)},
+  { path:'credit/:you',loadChildren: () => import('./credit/credit.module').then(m =>m.CreditPageModule)},
 
 ];
 @NgModule({
