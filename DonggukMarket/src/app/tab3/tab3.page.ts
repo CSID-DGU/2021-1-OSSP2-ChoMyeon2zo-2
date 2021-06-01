@@ -1,17 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NavController, Platform } from '@ionic/angular';
-import { AngularFireDatabase } from 'angularfire2/database';
 
-import * as firebase from 'firebase';
-import { AlertController } from '@ionic/angular';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-
-import { AngularFireAuth } from 'angularfire2/auth';
-import { Storage } from '@ionic/storage';
-import { validateEventsArray } from '@angular/fire/firestore';
-
-let _this;
 @Component({
   selector: 'app-tab3',
   templateUrl: 'tab3.page.html',
