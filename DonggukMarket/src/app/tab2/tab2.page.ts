@@ -15,6 +15,7 @@ import { R3UsedDirectiveMetadata } from '@angular/compiler';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+  public searchinput: string="";
   public postkey: string;
   public writer: string;
   public items=[];
@@ -31,14 +32,14 @@ export class Tab2Page {
   public userid : string;
   first = true; // 처음 추가되는 채팅목록인지
 
-  
-    constructor( 
+
+    constructor(
       public router: Router,
       public navCtrl: NavController,
       public plat:Platform,
       public activatedRoute:ActivatedRoute,
       public db:AngularFireDatabase,
-      
+
       public alertCtrl: AlertController,
       public fs: AngularFirestoreModule,
       public stor : Storage,
@@ -69,7 +70,7 @@ export class Tab2Page {
       this.router.navigate(['post', this.postkey, this.writer]);
     }
 
-    
+
     async chatMe() {
       const alert2 = await this.alertCtrl.create({
         header: '경고!',
@@ -118,18 +119,18 @@ export class Tab2Page {
                 text: 'Okay',
                 handler: () => {
                   console.log('Confirm Okay');
-  
+
                   var user1;
                   this.stor.get('id').then((val) => { user1 = val; });
                   var user2 = this.ac.snapshot.paramMap.get('you');
-  
+
                   if ( user1 === user2 ) { // 채팅 대상자가 본인인 경우
                     this.chatMe();
-                  } else { // 채팅방 생성 
+                  } else { // 채팅방 생성
                     this.chattingRef = firebase.firestore().collection('chatting')
                     const db = firebase.firestore();
                     const collection = db.collection('chatting');
-  
+
                     collection.get().then(snapshot => {
                       snapshot.forEach(doc => {
                         let get1 = doc.data().uid1;
@@ -183,7 +184,7 @@ export class Tab2Page {
         });
         await alert.present();
       }
-    
+
     }
-    
+
   }

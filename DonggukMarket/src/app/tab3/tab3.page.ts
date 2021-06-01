@@ -83,6 +83,7 @@ export class Tab3Page {
 
   loadList(){
       this.db.list('board/',ref=>ref.orderByChild('postkey')).valueChanges().subscribe(data=>{this.items=data;})
+
   }
   getPost(item: any) {
        this.postkey = item.postkey;

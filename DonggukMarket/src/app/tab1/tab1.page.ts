@@ -13,6 +13,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  public searchinput: string="";
   public postkey: string;
   public writer: string;
   public items=[];
@@ -37,4 +38,5 @@ getPost(item: any) {
 goCreatePost() {
   this.router.navigate(['board']);
 }
+
 }

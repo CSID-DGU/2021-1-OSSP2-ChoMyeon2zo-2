@@ -12,9 +12,10 @@
 <ion-content>
   <ion-grid style = "height: 200%">
     <ion-row justify-content-center align-items-start >
-      <ion-searchbar (click)="searchView()" placeholder="물건을 검색해보세요"></ion-searchbar>
+      <ion-searchbar [(ngModel)]="searchinput" placeholder="물건을 검색해보세요"></ion-searchbar>
     </ion-row>
     <ion-col *ngFor="let item of items;" col-12 no-padding>
+      <div *ngIf="item.titleInput.includes(searchinput)==true">
       <ion-item (click)="getPost(item)" class="card" >
         <ion-img src="{{item.img}}" style='width:50%;height:50%'></ion-img>
         <ion-label>
@@ -27,7 +28,8 @@
           {{item.like}}
         </ion-note>
   </ion-item>
+      </div>
   </ion-col>
-   
+
   </ion-grid>
 </ion-content>
