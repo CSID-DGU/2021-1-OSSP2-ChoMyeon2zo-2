@@ -9,7 +9,7 @@
       <ion-button [routerLink]="['/alert']" style="float: right;" fill="clear" color="dark" shape="round" size="small"> <!-- 여러가지 알림을 볼 수 있는 버튼 -->
         <ion-icon class="top-icon" slot="icon-only" name="notifications-outline"> </ion-icon>
       </ion-button>
-      <h6>컴퓨터공학과 XXX</h6>             <!-- 해당 유저의 정보가 출력 -->
+      <h6>{{major}} {{name}}</h6>             <!-- 해당 유저의 정보가 출력 -->
     </ion-title>
 
     <br>
@@ -20,13 +20,13 @@
 
   <ion-slides pager="true">
     <ion-slide>
-      <h1>광고1</h1>
+      <ion-img src='assets/ad1.jpg'></ion-img>
     </ion-slide>
     <ion-slide>
-      <h1>광고2</h1>
+      <ion-img src='assets/ad2.jpg'></ion-img>
     </ion-slide>
     <ion-slide>
-      <h1>광고3</h1>
+      <ion-img src='assets/ad3.jpg'></ion-img>
     </ion-slide>
   </ion-slides>
 
@@ -34,63 +34,23 @@
     <ion-title>최신글 목록</ion-title>
   </ion-toolbar>
 
-  <ion-list>
+  <ion-col *ngFor="let item of items.slice().reverse()" col-12 no-padding>
+    <ion-list>
+      <ion-item (click)="getPost(item)">
+        <ion-img src='{{item.img}}' style='width:50%;height:50%'></ion-img>
+        <ion-label>
+          <h2>{{item.titleInput}}</h2>
+          <p>{{item.userid}} {{item.type}}</p>
+          <p>{{item.price}} 원</p>
+        </ion-label>
+        <ion-note slot="end">
+          {{item.time.substring(2,9)}}<br><br><br><br>
+          <ion-icon name="heart" color="danger"></ion-icon>
+          {{item.like}}
 
-    <ion-item href="#">
-      <ion-img src='assets/main_img.png' style='width:50%;height:50%'></ion-img>
-      <ion-label>
-        <h2>전공책 판매함</h2>
-        <p>컴퓨터공학과 xxx</p>
-        <p>10000원</p>
-      </ion-label>
-      <ion-note slot="end">
-        36분 전<br><br><br><br>
-        <ion-icon name="heart" color="danger"></ion-icon>
-        50
-        <ion-icon name="chatbubble-outline"></ion-icon>
-        12
-      </ion-note>
-    </ion-item>
-
-    <ion-item href="#">
-      <ion-img src='assets/main_img.png' style='width:50%;height:50%'></ion-img>
-      <ion-label>
-        <h2>자전거 팝니다.</h2>
-        <p>화학공학과 yyy</p>
-        <p>150000원</p>
-      </ion-label>
-      <ion-note slot="end">
-        1시간 전<br><br><br><br>
-        <ion-icon name="heart" color="danger"></ion-icon>
-        4
-        <ion-icon name="chatbubble-outline"></ion-icon>
-        2
-      </ion-note>
-    </ion-item>
-
-    <ion-item href="#">
-      <ion-img src='assets/main_img.png' style='width:50%;height:50%'></ion-img>
-      <ion-label>
-        <h2>가습기 팔아요</h2>
-        <p>통계학과 zzz</p>
-        <p>25000원</p>
-      </ion-label>
-      <ion-note slot="end">
-        3시간 전<br><br><br><br>
-        <ion-icon name="heart" color="danger"></ion-icon>
-        18
-        <ion-icon name="chatbubble-outline"></ion-icon>
-        6
-      </ion-note>
-    </ion-item>
-
-
-  </ion-list>
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+        </ion-note>
+      </ion-item>
+    </ion-list>
+  </ion-col>
 
 </ion-content>
