@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title style="height: 50px;">
-      <b>My page</b>
+      <b>마이페이지</b>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -25,9 +25,9 @@
       <ion-card>
         <ion-card-content>
           <ion-item>
-            <ion-label><b>{{nickname}}</b></ion-label> <!-- 유저명 -->   
-            <ion-badge style="float: right;" fill="clear" color="light" shape="round" size="small">{{major}}</ion-badge>  <!--단과대학 --> 
-            <ion-badge style="float: right;" fill="clear" color="success"  shape="round" size="small">{{check}}</ion-badge><br><br>  <!--재학생인증 유무 --> 
+            <ion-label><b>{{nickname}}</b></ion-label> <!-- 유저명 -->
+            <ion-badge style="float: right;" fill="clear" color="light" shape="round" size="small">{{major}}</ion-badge>  <!--단과대학 -->
+            <ion-badge style="float: right;" fill="clear" color="success"  shape="round" size="small">{{check}}</ion-badge><br><br>  <!--재학생인증 유무 -->
         </ion-item>
         <ion-item>
           {{email}}  <!-- 유저 이메일 -->
@@ -35,12 +35,12 @@
           <ion-item>
             <div id="text">
               <ion-button [routerLink]="['/my-profile']" color="medium" expand="full">프로필 보기</ion-button>
-            </div> 
+            </div>
           </ion-item>
           <ion-item>
             <div id="text">
               <ion-button color="medium" expand="full" (click)="logout()">로그아웃</ion-button>
-            </div> 
+            </div>
           </ion-item>
         </ion-card-content>
       </ion-card>
@@ -75,5 +75,5 @@
       </ion-card>
   </div>
   </div>
-  
+
 </ion-content>

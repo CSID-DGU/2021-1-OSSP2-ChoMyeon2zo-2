@@ -1,19 +1,16 @@
 <ion-header>
-  <ion-navbar>
-    <br>
-    <ion-title>
-      홈
-      <ion-button [routerLink]="['/my-like']" style="float: right;" fill="clear" color="dark" shape="round" size="small"> <!-- 찜한 품목 목록들 보러가는 버튼 -->
-        <ion-icon class="top-icon" slot="icon-only" name="bag-outline"> </ion-icon>
+  <ion-toolbar color = "white">
+    <ion-buttons slot="primary">
+      <ion-button [routerLink]="['/my-like']" fill="clear" color="dark"> <!-- 찜한 품목 목록들 보러가는 버튼 -->
+        <ion-icon class="top-icon" name="bag-outline"> </ion-icon>
       </ion-button>
-      <ion-button [routerLink]="['/alert']" style="float: right;" fill="clear" color="dark" shape="round" size="small"> <!-- 여러가지 알림을 볼 수 있는 버튼 -->
-        <ion-icon class="top-icon" slot="icon-only" name="notifications-outline"> </ion-icon>
+      <ion-button [routerLink]="['/alert']" fill="clear" color="dark"> <!-- 여러가지 알림을 볼 수 있는 버튼 -->
+        <ion-icon class="top-icon" name="notifications-outline"> </ion-icon>
       </ion-button>
-      <h6>{{major}} {{name}}</h6>             <!-- 해당 유저의 정보가 출력 -->
-    </ion-title>
-
-    <br>
-  </ion-navbar>
+    </ion-buttons>
+      <ion-title><b expand="full">홈</b></ion-title>
+  </ion-toolbar>
+  &nbsp;&nbsp;&nbsp;{{major}} {{name}}<br>&nbsp;
 </ion-header>
 
 <ion-content>
