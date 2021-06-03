@@ -11,11 +11,11 @@ import * as firebase from 'firebase/app';
 
 let _this;
 @Component({
-  selector: 'app-student-check',
-  templateUrl: './student-check.page.html',
-  styleUrls: ['./student-check.page.scss'],
+  selector: 'app-student-recheck',
+  templateUrl: './student-recheck.page.html',
+  styleUrls: ['./student-recheck.page.scss'],
 })
-export class StudentCheckPage implements OnInit {
+export class StudentRecheckPage implements OnInit {
   id:string="";
   name:string="";
   s_num:string="";
@@ -38,6 +38,9 @@ export class StudentCheckPage implements OnInit {
     //public progress: NgProgress
   ) {
     _this=this;
+  }
+  priorPage(){
+    this.navCtrl.navigateRoot('tabs/tab5');
   }
   async selectImage() {    
     let actionSheet = await this.actionSheetCtrl.create({
@@ -96,13 +99,12 @@ export class StudentCheckPage implements OnInit {
       console.log(newtext.includes('휴대폰'+this.phone+'\\n')+' '+this.phone);
       if(newtext.includes('성명'+this.name+'\\n') && newtext.includes('학번'+this.s_num+'\\n') && newtext.includes('휴대폰'+this.phone+'\\n')){
         const alert1 = await this.alertCtrl.create({
-          header: '가입완료',
-          message: '인증이 완료되었습니다.<br>로그인 화면으로 이동합니다',
+          message: '인증이 완료되었습니다.<br>메인으로 이동합니다',
           buttons: [{
             text: '확인',
             handler: () => {
             console.log('Confirm Okay');
-            this.navCtrl.navigateRoot('/login');
+            this.navCtrl.navigateRoot('/');
             }
         }]});
         this.db.object(`userinfo/${this.id}/student_credit`).set(true); //재학생 인증 true
@@ -121,70 +123,29 @@ export class StudentCheckPage implements OnInit {
       else{
         this.selectedImage="";
         const alert2 = await this.alertCtrl.create({
-          message: '인증이 실패했습니다.<br>회원가입 첫 단계로 이동합니다',
+          message: '인증이 실패했습니다.<br>마이페이지로 이동합니다',
           buttons: [
             {
             text: '돌아가기',
             handler: () => {
             console.log('Confirm Okay');
-            var user = firebase.auth().currentUser;
-            console.log('user = '+user);
-            user.delete().then(function() {
-              console.log('Delete success');
-            }).catch(function(error){console.log(error);})
-    
-            //db삭제
-            try{
-              firebase.database().ref().child(`userinfo/${this.id}`).remove();
-              _this.navCtrl.navigateRoot('/sign');
+            _this.navCtrl.navigateRoot('/sign');
             }
-            catch(err) {console.log(err);}
-          }}
-        ]
+            }
+          ]
         });
         await alert2.present();
       }
     })();
   }
 
-  async notsign(){
-    console.log('not sign');
-    const alert1 = await this.alertCtrl.create({
-      message: '진행된 내역을 삭제한 뒤<br>메인화면으로 돌아갑니다.',
-      buttons: [
-        {
-          text: '취소',
-          handler: () => {
-            console.log('No');
-        }},
-        {
-        text: '확인',
-        handler: () => {
-        console.log('Confirm Okay');
-        var user = firebase.auth().currentUser;
-        console.log('user = '+user);
-        user.delete().then(function() {
-          console.log('Delete success');
-        }).catch(function(error){console.log(error);})
-
-        //db삭제
-        try{
-          firebase.database().ref().child(`userinfo/${this.id}`).remove();
-          _this.navCtrl.navigateRoot('tabs/tab3');
-        }
-        catch(err) {console.log(err);}
-      }}
-    ]});
-    await alert1.present();
-  }
   ngOnInit() {
     //can get id/ email from sing.page 
     this.route.queryParams.subscribe(params => {    
       if (this.router.getCurrentNavigation().extras.state) {
           this.id = this.router.getCurrentNavigation().extras.state.id;
           this.name = this.router.getCurrentNavigation().extras.state.name;
-          this.s_num = this.router.getCurrentNavigation().extras.state.student_number;
-          this.school = this.router.getCurrentNavigation().extras.state.school;
+          this.s_num = this.router.getCurrentNavigation().extras.state.student_num;
           var phone = this.router.getCurrentNavigation().extras.state.phone;
           console.log(phone);
           if(phone.length==11){
@@ -195,7 +156,7 @@ export class StudentCheckPage implements OnInit {
           }
           console.log(phone);
           this.phone=phone;
-          console.log(this.id+' '+this.name+' '+this.s_num+' '+this.school+' '+this.phone);
+          console.log(this.id+' '+this.name+' '+this.s_num+' '+this.phone);
       }
     })
   }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras} from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import * as firebase from 'firebase/app';
@@ -84,6 +84,26 @@ export class MyProfilePage {
     }
     console.log('set name='+_this.name+' '+this.name);
 
+  }
+
+  movetorecheck(){
+    
+    var studentnum;
+    try{
+    firebase.database().ref().child(`userinfo/${this.userid}`).on('value', function(data){
+      var user = data.val();
+      studentnum=user['student_number'];
+    });}
+    catch(err) {console.log(err);}
+    let info: NavigationExtras = {
+      state: {
+        id:this.userid,
+        name:this.name,
+        phone:this.phone,
+        student_num:studentnum
+      } 
+    };
+    this.router.navigate(['/student-recheck'],info);
   }
   ionViewDidLeave(){
     console.log('leave');

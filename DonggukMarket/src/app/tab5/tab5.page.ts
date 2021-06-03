@@ -21,6 +21,7 @@ export class Tab5Page {
   public num:number=0;
   public check:string="";
   public nickname:string="";
+  public time:string="";
   public items=[];
   constructor(
     public navCtrl: NavController, 
@@ -42,9 +43,32 @@ export class Tab5Page {
         _this.major=user['major'];
         _this.nickname=user['nickname'];
         _this.credit=user['student_credit'];
-        _this.set();
+        _this.time=user['student_credit_date'];
        });
      });
+      console.log(_this.time);
+      var olddate = new Date(_this.time.substr(0,4)+'/'+_this.time.substr(4,2)+'/'+_this.time.substr(6,2));
+      var now = new Date();
+      var year = String(now.getFullYear());
+      var month = String(now.getMonth()+1);
+      if(month.length==1) month='0'+month;
+      var date =String( now.getDate());
+      if(date.length==1) date = '0'+date;
+      var nowDate = new Date(year+'/'+month+'/'+date);
+      console.log(olddate+' '+nowDate);
+      if(olddate.setDate(olddate.getMonth()+6) < nowDate.getTime() ){
+        return this.alertCtrl.create({
+          header: '',
+          message: '재학생 인증을 한지<br>6개월이 되었습니다',
+          buttons: [{
+            text: '닫기'
+          }]
+        }).then(alertEl => {
+          alertEl.present();
+        });
+      }
+
+      _this.set();
   }
 
   set(){

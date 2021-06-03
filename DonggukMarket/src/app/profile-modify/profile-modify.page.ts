@@ -85,6 +85,27 @@ export class ProfileModifyPage {
 
   }
 
+  movetorecheck(){
+    
+    var studentnum;
+    try{
+    firebase.database().ref().child(`userinfo/${this.userid}`).on('value', function(data){
+      var user = data.val();
+      studentnum=user['student_number'];
+      console.log('학번 = '+studentnum);
+    });}
+    catch(err) {console.log(err);}
+    let info: NavigationExtras = {
+      state: {
+        id:this.userid,
+        name:this.name,
+        phone:this.phone,
+        student_num:studentnum
+      } 
+    };
+    this.router.navigate(['/student-recheck'],info);
+  }
+
   modify(){
     if(this.majorInput===''||this.phoneInput===''){
       this.alertCtrl.create({

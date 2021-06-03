@@ -32,8 +32,10 @@ export class SignPage implements OnInit {
   pressed:boolean=false;
   nicknamepressed:boolean=false;
   idpressed:boolean=false;
+  studentpressed:boolean=false;
   id_check:boolean=true;
   nickname_check:boolean=true;
+  student_check:boolean=true;
   smsphone:string='';
   recaptchaVerifier:firebase.auth.RecaptchaVerifier;
   
@@ -75,14 +77,18 @@ export class SignPage implements OnInit {
     this.pressed=false;
     this.nicknamepressed=false;
     this.idpressed=false;
+    this.studentpressed=false;
     this.id_check=true;
     this.nickname_check=true;
+    this.student_check=true;
     this.smsphone='';
     _this.pressed=false;
     _this.nicknamepressed=false;
     _this.idpressed=false;
+    _this.studentpressed=false;
     _this.id_check=true;
     _this.nickname_check=true;
+    _this.student_check=true;
     _this.smsphone='';
   }
   
@@ -110,6 +116,7 @@ export class SignPage implements OnInit {
   async changecheckStatus(){
     this.id_check=_this.id_check;
     this.nickname_check=_this.nickname_check;
+    this.student_check=_this.student_check;
   }
 
   pressChange(){
@@ -120,6 +127,9 @@ export class SignPage implements OnInit {
   }
   idpress(){
     this.idpressed=true;
+  }
+  studentpress(){
+    this.studentpressed=true;
   }
   async sendPhone(){
     
@@ -280,24 +290,48 @@ export class SignPage implements OnInit {
     console.log('nickname '+_this.nickname_check);
   }
 
-
-  /*nickname_checkfunc(){
-    let dv;
-    console.log('nickname = '+this.nickname+' id = '+this.id);
+  student_checkfunc(){
+    //닉네임
+    this.studentpress();
+    let info;
     try{
-      firebase.database().ref().child('userinfo').orderByChild('nickname').equalTo(`${this.nickname}`).once('value', function(data){
-       dv=data.val();
-        console.log('nickname info = '+dv);
-        if(dv == null){
-          _this.nickname_check=true;
-        }
-        
-      });
-    }
+      firebase.database().ref().child('userinfo').orderByChild('student_number').equalTo(`${this.student_number}`).once('value', function(data){
+      info=data.val();
+      console.log(info);
+      if(info != null){
+        _this.student_check=false;
+        console.log('학번 이미 존재');
+        return _this.alertCtrl.create({
+          header: '',
+          message: '학번이 사용중입니다',
+          buttons: [{
+            text: '확인',
+            role: 'cancel'
+          }]
+        }).then(alertEl => {
+          alertEl.present();
+        });
+      }
+      else{
+        _this.student_check=true;
+        console.log('학번 사용가능');
+        return _this.alertCtrl.create({
+          header: '',
+          message: '학번을 사용하실 수 있습니다',
+          buttons: [{
+            text: '확인',
+            role: 'cancel'
+          }]
+        }).then(alertEl => {
+          alertEl.present();
+        });
+      }
+    });}
     catch(err) {
       console.log(err);
     }
-  }*/
+    console.log('nickname '+_this.nickname_check);
+  }
 
   register() {
     this.changeStatus();
@@ -333,6 +367,19 @@ export class SignPage implements OnInit {
       });
 
     }
+    if(this.student_check==false){
+      return this.alertCtrl.create({
+        header: '',
+        message: '학번이 사용중입니다',
+        buttons: [{
+          text: '확인',
+          role: 'cancel'
+        }]
+      }).then(alertEl => {
+        alertEl.present();
+      });
+
+    }
     if(this.nicknamepressed==false){
       return this.alertCtrl.create({
         header: '',
@@ -345,8 +392,32 @@ export class SignPage implements OnInit {
         alertEl.present();
       });
     }
+    if(this.idpressed==false){
+      return this.alertCtrl.create({
+        header: '',
+        message: '아이디를 인증받아야합니다',
+        buttons: [{
+          text: '확인',
+          role: 'cancel'
+        }]
+      }).then(alertEl => {
+        alertEl.present();
+      });
+    }
+    if(this.studentpressed==false){
+      return this.alertCtrl.create({
+        header: '',
+        message: '학번을 인증받아야합니다',
+        buttons: [{
+          text: '확인',
+          role: 'cancel'
+        }]
+      }).then(alertEl => {
+        alertEl.present();
+      });
+    }
     console.log('press = '+this.pressed);
-    if(this.email === '' || this.school===''|| this.domain===''||this.phone==='' || this.password === '' || this.name === '' || this.major === '' || this.nickname===' ' ){
+    if(this.email === '' || this.student_number===''||this.school===''|| this.domain===''||this.phone==='' || this.password === '' || this.name === '' || this.major === '' || this.nickname===' ' ){
       return this.alertCtrl.create({
         header: '',
         message: '빈칸을 모두 채워주세요',

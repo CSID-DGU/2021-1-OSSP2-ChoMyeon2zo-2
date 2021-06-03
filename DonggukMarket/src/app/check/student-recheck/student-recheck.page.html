@@ -1,0 +1,19 @@
+<ion-app>
+  <ion-img src='assets/dg_img.png' style='height:100px'></ion-img>
+  <ion-content class="sign_menu">
+    <h3>&nbsp;재학생 재인증</h3>
+    <br>
+    <div class="info">학적부 이미지를 첨부해주세요<br>
+    동국대학교App-학사정보-학적관리-학적부수정
+    </div>
+    
+    <br>
+      <center><img style="width: 70%; height: 40%;" [src]="selectedImage" *ngIf="selectedImage"></center>
+      <ion-button item-right color="light" expand="block" (click)="selectImage()">사진 열기</ion-button>
+      <p> </p>
+      <ion-button item-right color="light" expand="block" [disabled]="!selectedImage" (click)="recognizeImage()">사진 인식</ion-button>
+
+      <br><br><br>
+      <ion-button color="light" (click)="priorPage()">이전</ion-button>
+  </ion-content>
+</ion-app>
