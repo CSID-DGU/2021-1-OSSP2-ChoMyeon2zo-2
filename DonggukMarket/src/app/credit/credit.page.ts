@@ -48,7 +48,10 @@ export class CreditPage implements OnInit{
             let v = snapshot.child(`userinfo/${this.you}/trade_credit`).val()
             this.trade_credit = v*1;
             console.log(this.trade_credit);
-            this.trade_credit = snapshot.child(`userinfo/${this.you}/trade_count`).val();
+            let c = snapshot.child(`userinfo/${this.you}/trade_count`).val();
+            this.trade_count = c
+            this.trade_count = c*1;
+           
 
             console.log(this.tradevalue);
         this.trade_credit = this.trade_credit + this.tradevalue;
