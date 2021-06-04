@@ -26,8 +26,11 @@ export class MyProfilePage {
   public school:string="";
   public nickname:string="";
   public phone:number=0;
+  public trade_count:number=0;
   public trade_credit:number=0;
-  public trade_list:number=0;
+  public group:number=0;
+  public rent:number=0;
+  public sell:number=0;
   constructor(
     public navCtrl: NavController, 
     // private alertCtrl: AlertController,
@@ -53,18 +56,24 @@ export class MyProfilePage {
         _this.school=user['school'];
         _this.trade_credit=user['trade_credit'];
         _this.phone=user['phone'];
-        _this.trade_list=user['trade_list'];
-        // _this.trade_count=user['trade_count'];
-        // _this.group=user['trade_list']['group'];
+        // _this.trade_list=user['trade_list'];
+        _this.trade_count=user['trade_count'];
+        _this.group=user['trade_list']['group'];
+        _this.rent=user['trade_list']['rent'];
+        _this.sell=user['trade_list']['sell'];
 
         // console.log("tt"+_this.group[1]);
 
         _this.trade_credit *= 1;
-        _this.trade_count = Object.keys(_this.trade_list).length;
-        console.log("trade length : "+_this.trade_count);
+        _this.group = Object.keys(_this.group).length;
+        _this.rent = Object.keys(_this.rent).length;
+        _this.sell = Object.keys(_this.sell).length;
 
-        if((_this.trade_count-3) !== 0){
-          _this.trage_credit_score = _this.trade_credit/(_this.trade_count-3);
+        console.log("trade length : "+(_this.group+_this.rent+_this.sell-3));
+        console.log("trade count : "+(_this.trade_count));
+
+        if((_this.trade_count) !== 0){
+          _this.trage_credit_score = _this.trade_credit/_this.trade_count;
         }
         else{
           _this.trage_credit_score = 0
