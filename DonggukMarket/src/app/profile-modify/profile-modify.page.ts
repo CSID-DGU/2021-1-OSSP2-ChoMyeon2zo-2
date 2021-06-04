@@ -12,6 +12,7 @@ import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/database'
 import 'firebase/storage'
+import { Camera } from '@ionic-native/camera/ngx';
 
 let _this;
 @Component({
@@ -20,6 +21,10 @@ let _this;
   styleUrls: ['./profile-modify.page.scss'],
 })
 export class ProfileModifyPage {
+  tmpimgurl:any;
+  picname: string = "";
+  imageURI: string = "";
+  public userpic:string="";
   public userid:string="";
   public name:string="";
   public email:string="";
@@ -42,7 +47,9 @@ export class ProfileModifyPage {
     private alertCtrl:AlertController,
     public db:AngularFireDatabase,
     public stor: Storage,
-    public router: Router
+    public router: Router,
+    public st: AngularFireStorage,
+    private camera: Camera
   ) {_this=this; var a;}
 
   ngOnInit(){
@@ -51,6 +58,7 @@ export class ProfileModifyPage {
       this.userid = val;
       firebase.database().ref().child(`userinfo/${this.userid}`).once('value', function(data){
         var user = data.val();
+        _this.userpic=user['userpic'];
         _this.name=user['name'];
         _this.email=user['email'];
         _this.major=user['major'];
@@ -65,6 +73,7 @@ export class ProfileModifyPage {
   }
 
   set(){
+    this.userpic=_this.userpic;
     this.name=_this.name;
     this.nickname=_this.nickname;
     this.school=_this.school;
@@ -130,5 +139,44 @@ export class ProfileModifyPage {
       this.router.navigate(['/my-profile']);
     }
   }
+  pickPicture() {
+    // tslint:disable-next-line:prefer-const
+    let options = {
+      quality: 100,
+      targetWidth: 500,
+      targetHeight: 500,
+      allowEdit: true,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+    };
+    this.camera.getPicture(options).then((imageURI) => {
+      // tslint:disable-next-line:prefer-const
+      let newName = `${new Date().getTime()}.png`;
+      console.log(imageURI);
+      // 이미지 미리보기
+      document.getElementById('upic').setAttribute('src', 'data:image/jpeg;base64,' + imageURI);
+      this.imageURI = imageURI;
+      this.picname = newName;
+      this.st.ref(`userpic/${newName}`).putString(imageURI, 'base64', {contentType: 'image/png'}).then( value => {
+        this.showImage();
+      });
+
+    },(err) => {
+      console.log('err:' + JSON.stringify(err));
+    });
+  }
+  showImage() {
+    // tslint:disable-next-line: prefer-const
+          let storageRef = firebase.storage().ref();
+    // tslint:disable-next-line: prefer-const
+          let imageRef = storageRef.child(`userpic/${this.picname}`);
+          // console.log(imageRef.getDownloadURL());
+          imageRef.getDownloadURL()
+          .then((imageURI) => {
+            this.tmpimgurl = imageURI;
+            this.db.object(`userinfo/${this.userid}/userpic`).set(this.tmpimgurl);
+            this.stor.set('pic', this.tmpimgurl);
+          });
+        }
 
 }

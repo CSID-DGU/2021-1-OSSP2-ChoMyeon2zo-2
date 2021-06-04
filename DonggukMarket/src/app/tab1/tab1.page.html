@@ -1,19 +1,22 @@
 <ion-header>
   <ion-toolbar color = "white">
     <ion-buttons slot="primary">
+      <ion-button (click)="goCategory()" >
+        <ion-icon name="menu-outline"size='large'></ion-icon>
+      </ion-button>
       <ion-button (click)="goCreatePost()" >
         <ion-icon name="pencil-outline" size="medium"></ion-icon>
         </ion-button>
     </ion-buttons>
     <ion-title><b expand="full">검색</b></ion-title>
   </ion-toolbar>
+  <ion-row justify-content-center align-items-start >
+    <ion-searchbar [(ngModel)]="searchinput" placeholder="물건을 검색해보세요"></ion-searchbar>
+  </ion-row>
 </ion-header>
 
 <ion-content>
   <ion-grid style = "height: 200%">
-    <ion-row justify-content-center align-items-start >
-      <ion-searchbar [(ngModel)]="searchinput" placeholder="물건을 검색해보세요"></ion-searchbar>
-    </ion-row>
     <ion-col *ngFor="let item of items;" col-12 no-padding>
       <div *ngIf="item.titleInput.includes(searchinput)==true">
       <ion-item (click)="getPost(item)" class="card" >

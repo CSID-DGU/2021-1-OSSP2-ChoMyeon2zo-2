@@ -4,7 +4,7 @@
       <ion-back-button text="" defaultHref="/my-profile"></ion-back-button>
     </ion-buttons>
     <ion-title style="height: 50px;">
-      <b>My Profile</b>
+      <b>마이 프로필</b>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -20,6 +20,9 @@
       <ion-card>
         <ion-card-content>
           <ion-item>
+            <ion-avatar>
+              <img id="upic" src="{{userpic}}" (click)="pickPicture()"/>
+            </ion-avatar>
               <ion-label><b>{{nickname}}</b></ion-label> <!-- 유저명 -->    
               <ion-badge style="float: right;" fill="clear" color="light" shape="round" size="small">{{major}}</ion-badge>  <!--단과대학 --> 
               <ion-badge style="float: right;" fill="clear" color="success"  shape="round" size="small">{{check}}</ion-badge><br><br>  <!--재학생인증 유무 --> 
