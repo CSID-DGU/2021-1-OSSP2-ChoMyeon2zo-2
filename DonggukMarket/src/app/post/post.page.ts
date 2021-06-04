@@ -33,6 +33,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   currentU: string;
   name: string;
   tt:string;
+
   chattingRef: any;
   check = false; // 채팅 목록
   size: number; // 채팅 목록 수
@@ -40,7 +41,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   getuid1: string;
   getuid2: string;
   index: number;
+  public userid : string;
   first = true; // 처음 추가되는 채팅목록인지
+
   
   constructor(
     public router: Router,
@@ -51,9 +54,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     public stor:Storage,
     public alertCtrl: AlertController,
     public fs: AngularFirestoreModule,
+    public ac:ActivatedRoute,
   ) {
     this.stor.get('id').then((val) => {
-      this.currentU = val;
+      this.stor.get('id').then((val)=>{ this.userid=val;});
     });
   }
   ngOnInit() {
@@ -107,7 +111,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
           data => {
             if (data.length !== 1) { return; } // TODO: Error exception
             let writerInfo;
-            writerInfo = data[0]; 
+            writerInfo = data[0]; // 변수명 왜이래ㅋㅋ큐ㅠㅠㅠ
            document.getElementById('writerimg').setAttribute('src', writerInfo.userpic);
         });
     });
@@ -117,7 +121,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
   {
     const al = await this.alertCtrl.create({
       header:'확인!',
-      message: '채팅방을 삭제하시겠습니까?',
+      message: '게시물을 삭제하시겠습니까?',
       buttons:[
         {
           text:'Cancel',
@@ -130,7 +134,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
         {
           text:'Okay',
           handler:()=>{
-            console.log('채팅방 삭제');
+            console.log('게시물 삭제');
             this.db.object(`board/${this.postkey}`).set(null);
             this.alertDeletepost();
           }
@@ -189,119 +193,120 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
         this.db.object(`userinfo/${this.currentU}/like_list/${this.postkey}`).set(null);        
               });
     }
-  async chatMe() {
-    const alert2 = await this.alertCtrl.create({
-      header: '확인!',
-      message: '본인이 작성한 게시글입니다',
-      buttons: [
-        {
-          text: 'Okay',
-          role: 'cancel',
-          handler: (blah) => {
-            console.log('chat with me');
-          }
-        }
-      ]
-    });
-    await alert2.present();
-  }
-
-  async CreateChat(you:string){
-    if(!this.currentU){
-      this.alertCtrl.create({
-        header:'',
-        message: '로그인 후 이용해주세요',
-        buttons:[{
-          text:'확인',
-          role: 'cancel'
-        }]
-      }).then(alertEI=>{
-        alertEI.present();
-      });
-      this.router.navigateByUrl('login');
-    }
-    else{
-    this.check = false;
-    const alert = await this.alertCtrl.create({
-        header: '확인!',
-        message: '<strong>' + you + '</strong>' + '와 채팅하시겠습니까??',
+    async chatMe() {
+      const alert2 = await this.alertCtrl.create({
+        header: '경고!',
+        message: '본인이 작성한 게시글입니다',
         buttons: [
           {
-            text: 'Cancel',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: (blah) => {
-              console.log('Confirm Cancel: blah');
-            }
-          }, {
             text: 'Okay',
-            handler: () => {
-              console.log('Confirm Okay');
+            role: 'cancel',
+            handler: (blah) => {
+              console.log('chat with me');
+            }
+          }
+        ]
+      });
+      await alert2.present();
+    }
 
-              var user1 = "current user";
-              var user2 = you;
+    async CreateChat(you:string){
+      if(!this.userid){
+        this.alertCtrl.create({
+          header:'',
+          message: '로그인 후 이용해주세요',
+          buttons:[{
+            text:'확인',
+            role: 'cancel'
+          }]
+        }).then(alertEI=>{
+          alertEI.present();
+        });
+        this.router.navigateByUrl('login');
+      }
+      else{
+        this.check = false;
+        const alert = await this.alertCtrl.create({
+            header: '확인!',
+            message: '<strong>' + you + '</strong>' + '와 채팅하시겠습니까??',
+            buttons: [
+              {
+                text: 'Cancel',
+                role: 'cancel',
+                cssClass: 'secondary',
+                handler: (blah) => {
+                  console.log('Confirm Cancel: blah');
+                }
+              }, {
+                text: 'Okay',
+                handler: () => {
+                  console.log('Confirm Okay');
 
-              if ( user1 === user2 ) { // 채팅 대상자가 본인인 경우
-                this.chatMe();
-              } else { // 채팅방 생성 
-                this.chattingRef = firebase.firestore().collection('chatting')
-                const db = firebase.firestore();
-                const collection = db.collection('chatting');
+                  var user1;
+                  this.stor.get('id').then((val) => { user1 = val; });
+                  var user2 = this.ac.snapshot.paramMap.get('you');
 
-                collection.get().then(snapshot => {
-                  snapshot.forEach(doc => {
-                    let get1 = doc.data().uid1;
-                    let get2 = doc.data().uid2;
-                    this.getuid1 = get1;
-                    this.getuid2 = get2;
-                    if ((user1 === this.getuid1 && user2 === this.getuid2) || (user1 === this.getuid2 && user2 === this.getuid1)) {
-                      this.check = true;
-                    }
-                  });
-                  if (this.check === false)
-                  {
-                    this.size = snapshot.size;
-                    if (this.size === 0) { // 채팅 목록이 한개도 없음
-                      this.index = 0;
-                      firebase.firestore().collection('ListSize').doc('index').set({
-                        index: this.index
+                  if ( user1 === user2 ) { // 채팅 대상자가 본인인 경우
+                    this.chatMe();
+                  } else { // 채팅방 생성
+                    this.chattingRef = firebase.firestore().collection('chatting')
+                    const db = firebase.firestore();
+                    const collection = db.collection('chatting');
+
+                    collection.get().then(snapshot => {
+                      snapshot.forEach(doc => {
+                        let get1 = doc.data().uid1;
+                        let get2 = doc.data().uid2;
+                        this.getuid1 = get1;
+                        this.getuid2 = get2;
+                        if ((user1 === this.getuid1 && user2 === this.getuid2) || (user1 === this.getuid2 && user2 === this.getuid1)) {
+                          this.check = true;
+                        }
                       });
-                      firebase.firestore().collection('chatting').doc((this.index).toString()).set({
-                        uid1: "current user",
-                        uid2: you,
-                        Timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                        num: this.index
-                      });
-                    } else { // 채팅 목록이 1개이상 존재할 때
-                      db.collection('ListSize').get().then( snapshot => {
-                        snapshot.forEach(doc => {
-                          this.getSize = doc.data().index;
-                          this.index = this.getSize;
-                          this.index = this.index + 1;
+                      if (this.check === false)
+                      {
+                        this.size = snapshot.size;
+                        if (this.size === 0) { // 채팅 목록이 한개도 없음
+                          this.index = 0;
+                          firebase.firestore().collection('ListSize').doc('index').set({
+                            index: this.index
+                          });
                           firebase.firestore().collection('chatting').doc((this.index).toString()).set({
-                            uid1: "current user",
+                            uid1: user1,
                             uid2: you,
                             Timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                             num: this.index
                           });
-                          firebase.firestore().collection('ListSize').doc('index').set({
-                            index: this.index
+                        } else { // 채팅 목록이 1개이상 존재할 때
+                          db.collection('ListSize').get().then( snapshot => {
+                            snapshot.forEach(doc => {
+                              this.getSize = doc.data().index;
+                              this.index = this.getSize;
+                              this.index = this.index + 1;
+                              firebase.firestore().collection('chatting').doc((this.index).toString()).set({
+                                uid1: user1,
+                                uid2: you,
+                                Timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                                num: this.index
+                              });
+                              firebase.firestore().collection('ListSize').doc('index').set({
+                                index: this.index
+                              });
+                            });
                           });
-                        });
-                      });
-                    }
-                    console.log('new chatting list');
+                        }
+                        console.log('new chatting list');
+                      }
+                    });
+                    this.router.navigate(['chat-room',you]);
                   }
-                });
-                this.router.navigate(['chat-room',you]);
+                }
               }
-            }
-          }
-        ]
-    });
-    await alert.present();
-  }
+            ]
+        });
+        await alert.present();
+      }
+
+    }
 }
 
-
-}
