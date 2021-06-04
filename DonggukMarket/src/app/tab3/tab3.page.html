@@ -8,12 +8,9 @@
         <ion-icon class="top-icon" name="notifications-outline"> </ion-icon>
       </ion-button>
     </ion-buttons>
-      <ion-title><b expand="full">홈</b></ion-title>
+    <ion-title><b expand="full">홈</b></ion-title>
   </ion-toolbar>
   &nbsp;&nbsp;&nbsp;{{major}} {{name}}<br>&nbsp;
-</ion-header>
-
-<ion-content>
 
   <ion-slides pager="true">
     <ion-slide>
@@ -30,7 +27,9 @@
   <ion-toolbar color="primary">
     <ion-title>최신글 목록</ion-title>
   </ion-toolbar>
+</ion-header>
 
+<ion-content>
   <ion-col *ngFor="let item of items.slice().reverse()" col-12 no-padding>
     <ion-list>
       <ion-item (click)="getPost(item)">
@@ -41,10 +40,11 @@
           <p>{{item.price}} 원</p>
         </ion-label>
         <ion-note slot="end">
-          {{item.time.substring(2,9)}}<br><br><br><br>
+          {{item.time.split('.')[0]}}/{{item.time.split('.')[1]}}/{{item.time.split('.')[2]}}
+          {{item.time.split('.')[3]}}:{{item.time.split('.')[4]}}
+          <br><br><br><br>
           <ion-icon name="heart" color="danger"></ion-icon>
           {{item.like}}
-
         </ion-note>
       </ion-item>
     </ion-list>
