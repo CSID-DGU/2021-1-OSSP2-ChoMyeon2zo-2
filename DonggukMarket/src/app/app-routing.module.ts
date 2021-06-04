@@ -22,7 +22,8 @@ const routes: Routes = [
   { path:'my-like',loadChildren: () => import('./my-like/my-like.module').then(m =>m.MyLikePageModule)},
   { path:'credit/:you',loadChildren: () => import('./credit/credit.module').then(m =>m.CreditPageModule)},
   { path:'category',loadChildren: () => import('./category/category.module').then(m =>m.CategoryPageModule)},
-  { path: 'student-recheck',loadChildren: () => import('./check/student-recheck/student-recheck.module').then( m => m.StudentRecheckPageModule)}
+  { path: 'student-recheck',loadChildren: () => import('./check/student-recheck/student-recheck.module').then( m => m.StudentRecheckPageModule)},
+  { path:'catepost/:cate',loadChildren: () => import('./catepost/catepost.module').then(m =>m.CatepostPageModule)},
 
 
 ];

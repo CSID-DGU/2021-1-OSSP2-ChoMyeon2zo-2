@@ -38,5 +38,8 @@ getPost(item: any) {
 goCreatePost() {
   this.router.navigate(['board']);
 }
+goCategory() {
+  this.router.navigate(['category']);
+}
 
 }

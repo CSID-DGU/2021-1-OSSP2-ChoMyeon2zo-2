@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color ="warning">
+      <ion-buttons slot="start">
+          <ion-back-button text="" defaultHref="category"></ion-back-button>
+        </ion-buttons>
+    <ion-title>{{headert}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <ion-col *ngFor="let item of items;" col-12 no-padding>
+      <ion-item (click)="getPost(item)" class="card" >
+          <ion-img src="{{item.img}}" style='width:50%;height:50%'></ion-img>
+          <ion-label>
+            <h2>TITLE : {{item.titleInput}}</h2>
+            <p>{{item.boardnick}}</p>
+            <p>PRICE : {{item.price}}</p>
+          </ion-label>
+          <ion-note slot="end">
+            <ion-icon name="heart" color="danger"></ion-icon>
+            {{item.like}}
+          </ion-note>
+    </ion-item>
+  </ion-col>
+</ion-content>
