@@ -35,10 +35,10 @@ export class CreditPage implements OnInit{
         this.you = this.ac.snapshot.paramMap.get('you');
         firebase.database().ref().once('value').then((snapshot) => {
             this.trade_credit = snapshot.child(`userinfo/${this.you}/trade_credit`).val();
-            //this.trade_credit = snapshot.child(`userinfo/${this.you}/trade_count`).val();
+            this.trade_credit = snapshot.child(`userinfo/${this.you}/trade_count`).val();
         });
         console.log(this.trade_credit);
-        //console.log(this.trade_count);
+        console.log(this.trade_count);
     }
 
     ngOnInit(){}
@@ -50,7 +50,7 @@ export class CreditPage implements OnInit{
         this.trade_count = this.trade_count + 1;
         let strArray = this.you;    
         this.db.object(`userinfo/${strArray}/trade_credit`).set(this.trade_credit);
-        //this.db.object(`userinfo/${strArray}/trade_count`).set(this.trade_count);
+        this.db.object(`userinfo/${strArray}/trade_count`).set(this.trade_count);
 
         const al = await this.atrCtrl.create({
             message: '거래가 완료되었습니다.',
