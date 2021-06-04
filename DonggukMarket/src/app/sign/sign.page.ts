@@ -460,7 +460,8 @@ export class SignPage implements OnInit {
     this.db.object(`userinfo/${strArray}/trade_list/rent/0`).set(0);//대여
     this.db.object(`userinfo/${strArray}/trade_list/sell/0`).set(0);//판매
     this.db.object(`userinfo/${strArray}/like_list/0`).set(0);//관심 목록
-
+    this.db.object(`userinfo/${strArray}/trade_count`).set(0);//거래 횟수
+    
     //parameter to student_check(id)
     let info: NavigationExtras = {
       state: {
