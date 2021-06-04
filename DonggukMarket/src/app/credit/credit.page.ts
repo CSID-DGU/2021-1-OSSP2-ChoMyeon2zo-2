@@ -7,6 +7,10 @@ import { AlertController } from '@ionic/angular';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFirestore } from 'angularfire2/firestore';
 import {Storage} from '@ionic/storage'
+import 'firebase/firestore'
+import 'firebase/auth'
+import 'firebase/database'
+import 'firebase/storage'
 
 
 @Component({
@@ -32,26 +36,27 @@ export class CreditPage implements OnInit{
         public ac:ActivatedRoute,
         public navCtrl: NavController, 
     ){
+        
         this.you = this.ac.snapshot.paramMap.get('you');
-        firebase.database().ref().once('value').then((snapshot) => {
-            this.trade_credit = snapshot.child(`userinfo/${this.you}/trade_credit`).val();
-            this.trade_credit = snapshot.child(`userinfo/${this.you}/trade_count`).val();
-        });
-        console.log(this.trade_credit);
-        console.log(this.trade_count);
     }
 
-    ngOnInit(){}
+    ngOnInit(){};
+    
 
     async setTrade(){
+        firebase.database().ref().once('value').then((snapshot) => {
+            let v = snapshot.child(`userinfo/${this.you}/trade_credit`).val()
+            this.trade_credit = v*1;
+            console.log(this.trade_credit);
+            this.trade_credit = snapshot.child(`userinfo/${this.you}/trade_count`).val();
 
-        console.log(this.tradevalue);
+            console.log(this.tradevalue);
         this.trade_credit = this.trade_credit + this.tradevalue;
         this.trade_count = this.trade_count + 1;
         let strArray = this.you;    
         this.db.object(`userinfo/${strArray}/trade_credit`).set(this.trade_credit);
         this.db.object(`userinfo/${strArray}/trade_count`).set(this.trade_count);
-
+        });
         const al = await this.atrCtrl.create({
             message: '거래가 완료되었습니다.',
             buttons: ['닫기']
@@ -59,5 +64,6 @@ export class CreditPage implements OnInit{
 
         await al.present();
         this.navCtrl.navigateRoot('tabs/tab3');
+        
     }
 }
