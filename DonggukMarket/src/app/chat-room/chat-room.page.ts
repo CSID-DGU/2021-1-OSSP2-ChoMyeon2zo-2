@@ -33,7 +33,6 @@ export class ChatRoomPage implements OnInit {
     chatnum:number; // 몇번째 채팅내용인지 찾기 위한 변수
 
     isfinish : boolean = false;
-    trade_credit:number=0; // 신뢰도
   
     constructor(
       public fs:AngularFirestoreModule, 
@@ -190,9 +189,6 @@ export class ChatRoomPage implements OnInit {
               console.log('Confirm Okay');
               
             this.router.navigate(['credit',this.you]);
-            let strArray = this.you;    
-            this.db.object(`userinfo/${strArray}/trade_credit`).set(this.trade_credit);
-            // you id랑 같은 아이디에서 신뢰도 가져오기 
            }
          }
         ]
