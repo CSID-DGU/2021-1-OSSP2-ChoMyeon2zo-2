@@ -54,6 +54,7 @@ export class MyProfilePage {
         _this.trade_credit=user['trade_credit'];
         _this.phone=user['phone'];
         _this.trade_list=user['trade_list'];
+        // _this.trade_count=user['trade_count'];
         // _this.group=user['trade_list']['group'];
 
         // console.log("tt"+_this.group[1]);
@@ -62,8 +63,8 @@ export class MyProfilePage {
         _this.trade_count = Object.keys(_this.trade_list).length;
         console.log("trade length : "+_this.trade_count);
 
-        if(_this.trade_count !== 0){
-          _this.trage_credit_score = _this.trade_credit/_this.trade_count
+        if((_this.trade_count-3) !== 0){
+          _this.trage_credit_score = _this.trade_credit/(_this.trade_count-3);
         }
         else{
           _this.trage_credit_score = 0
