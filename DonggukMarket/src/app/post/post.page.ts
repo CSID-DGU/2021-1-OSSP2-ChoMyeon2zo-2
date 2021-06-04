@@ -107,7 +107,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
           data => {
             if (data.length !== 1) { return; } // TODO: Error exception
             let writerInfo;
-            writerInfo = data[0]; // 변수명 왜이래ㅋㅋ큐ㅠㅠㅠ
+            writerInfo = data[0]; 
            document.getElementById('writerimg').setAttribute('src', writerInfo.userpic);
         });
     });
