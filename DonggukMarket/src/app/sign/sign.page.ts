@@ -23,7 +23,6 @@ export class SignPage implements OnInit {
   phone:string="";//전화번호
   phone_check:boolean=false;//전화번호 인증
   student_credit:boolean=false;//재학생인증
-  trade_credit:number=0;//신뢰도
   domain:string='';
   email:string='';//이메일주소
   school:string='';
@@ -64,8 +63,6 @@ export class SignPage implements OnInit {
     _this.phone_check=false;
     this.student_credit=false;
     _this.student_credit=false;
-    this.trade_credit=0;
-    _this.trade_credit=0;
     this.domain=null;
     _this.domain=null;
     this.email=null;
@@ -455,7 +452,7 @@ export class SignPage implements OnInit {
     this.db.object(`userinfo/${strArray}/phone_check`).set(this.phone_check);
     this.db.object(`userinfo/${strArray}/student_number`).set(this.student_number);
     this.db.object(`userinfo/${strArray}/userpic`).set(this.p_img);
-    this.db.object(`userinfo/${strArray}/trade_credit`).set(this.trade_credit); //신뢰도
+    this.db.object(`userinfo/${strArray}/trade_credit`).set(0); //신뢰도
     this.db.object(`userinfo/${strArray}/trade_list/group/0`).set(0);//공동구매
     this.db.object(`userinfo/${strArray}/trade_list/rent/0`).set(0);//대여
     this.db.object(`userinfo/${strArray}/trade_list/sell/0`).set(0);//판매
