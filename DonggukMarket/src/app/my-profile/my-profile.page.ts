@@ -16,6 +16,7 @@ let _this;
 })
 export class MyProfilePage {
   public userid:string="";
+  public userpic:string="";
   public name:string="";
   public email:string="";
   public major:string="";
@@ -43,6 +44,7 @@ export class MyProfilePage {
       console.log("my-profile test : "+this.userid);
       firebase.database().ref().child(`userinfo/${this.userid}`).on('value', function(data){
         var user = data.val();
+        _this.userpic=user['userpic'];
         _this.name=user['name'];
         _this.email=user['email'];
         _this.major=user['major'];
@@ -72,6 +74,7 @@ export class MyProfilePage {
   }
 
   set(){
+    this.userpic=_this.userpic;
     this.name=_this.name;
     this.email=_this.email;
     this.major=_this.major;

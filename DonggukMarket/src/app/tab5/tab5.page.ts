@@ -16,6 +16,7 @@ export class Tab5Page {
   public userid:string="";
   public name:string="";
   public email:string="";
+  public userpic: string="";
   public major:string="";
   public credit:string="";
   public num:number=0;
@@ -38,6 +39,7 @@ export class Tab5Page {
       firebase.database().ref().child(`userinfo/${this.userid}`).on('value', function(data){
         console.log(data.val());
         var user = data.val();
+        _this.userpic=user['userpic'];
         _this.name=user['name'];
         _this.email=user['email'];
         _this.major=user['major'];
@@ -72,6 +74,7 @@ export class Tab5Page {
   }
 
   set(){
+    this.userpic=_this.userpic;
     this.name=_this.name;
     this.email=_this.email;
     this.major=_this.major;
