@@ -61,13 +61,14 @@ export class boardpage {
     this.stor.get('id').then((val)=>{
       this.userid=val;
     });
+   
+  }
+  ngOnInit() {
     firebase.database().ref().once('value').then((snapshot) => {
       this.boardmajor = snapshot.child(`userinfo/${this.userid}/major`).val();  //전공
       this.boardnickname=snapshot.child(`userinfo/${this.userid}/nickname`).val(); //닉네임
-      this.boardschool=snapshot.child(`userinfo/${this.userid}/school`).val();
+      this.boardschool=snapshot.child(`userinfo/${this.userid}/school`).val();//학교
        });
-  }
-  ngOnInit() {
   }
   pickPicture() {
     // tslint:disable-next-line:prefer-const
