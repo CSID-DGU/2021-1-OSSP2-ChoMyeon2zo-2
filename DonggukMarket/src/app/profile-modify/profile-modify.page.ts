@@ -116,7 +116,7 @@ export class ProfileModifyPage {
   }
 
   modify(){
-    if(this.majorInput===''||this.phoneInput===''){
+   /* if(this.majorInput===''||this.phoneInput===''){
       this.alertCtrl.create({
         header: '',
         message: '내용을 전부 입력해주세요',
@@ -128,7 +128,7 @@ export class ProfileModifyPage {
         alertEI.present();
       });
       return 0;
-    } else {
+    }*/ 
       var profileRef = firebase.database().ref(`userinfo/${this.userid}`);
       profileRef.update({
         phone :  this.phoneInput,
@@ -137,7 +137,7 @@ export class ProfileModifyPage {
       alert('프로필이 수정되었습니다.');
       this.ngOnInit();
       this.router.navigate(['/my-profile']);
-    }
+    
   }
   pickPicture() {
     // tslint:disable-next-line:prefer-const
