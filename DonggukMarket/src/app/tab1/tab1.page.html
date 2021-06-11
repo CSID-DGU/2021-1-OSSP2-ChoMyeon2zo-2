@@ -9,6 +9,13 @@
         </ion-button>
     </ion-buttons>
     <ion-title><b expand="full">검색</b></ion-title>
+    <div *ngIf="userid===null">
+    <center><small><ion-select class="input" placeholder="학교선택  " [(ngModel)]="school" (ionChange)="schoolChanged($event)">
+      <ion-select-option value="동국대학교">동국대학교 </ion-select-option>
+      <ion-select-option value="건국대학교">건국대학교 </ion-select-option>
+      <ion-select-option value="홍익대학교">홍익대학교 </ion-select-option>
+    </ion-select></small></center>
+    </div>
   </ion-toolbar>
   <ion-row justify-content-center align-items-start >
     <ion-searchbar [(ngModel)]="searchinput" placeholder="물건을 검색해보세요"></ion-searchbar>
