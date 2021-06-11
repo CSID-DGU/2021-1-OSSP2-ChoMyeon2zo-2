@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color = "white">
+  <ion-toolbar color ="dark">
     <ion-buttons slot="primary">
       <ion-button (click)="goCategory()" >
         <ion-icon name="menu-outline"size='large'></ion-icon>
@@ -29,12 +29,12 @@
       <ion-item (click)="getPost(item)" class="card" >
         <ion-img src="{{item.img}}" style='width:50%;height:50%'></ion-img>
         <ion-label>
-          <h2>TITLe: {{item.titleInput}} </h2>
-          <p>{{item.boardnick}}</p>
-          <p>PRICE:{{item.price}}</p>
+          <B><h2>{{item.titleInput}} </h2></B>
+          <h6>{{item.boardnick}}</h6>
+          <B><p>{{item.price}}원</p></B>
         </ion-label>
         <ion-note slot="end">
-          <ion-icon name="heart" color="danger"></ion-icon>
+          <ion-icon name="heart" size='lagre'color="danger"></ion-icon>
           {{item.like}}
         </ion-note>
   </ion-item>
