@@ -6,9 +6,27 @@
 
 <ion-content [fullscreen]="true">
   <div class="wrap" *ngIf="userid==null">
-    <button class="butn" [routerLink]="['/login']" routerDirection="forward">로그인</button><br>
-    <button class="butn" [routerLink]="['/sign']" routerDirection="forward">회원가입</button><br>
-    <button class="butn" [routerLink]="['/find']" routerDirection="forward">이메일/비밀번호 찾기</button>
+    <ion-app>
+      <ion-content class="main" >
+        <section>
+        <ion-img src='assets/main_img.png' style='width:100%;height:100%'></ion-img>
+      </section>
+      <br>
+    
+        <section>
+          <ion-button [routerLink]="['/sign']" expand="block" color="light">회원가입</ion-button>
+        </section>
+       <br>
+        <section>
+          <ion-button [routerLink]="['/login']" expand="block" color="light">로그인</ion-button>
+        </section>
+        <br>
+        <section>
+          <ion-button [routerLink]="['/find']" expand="block" color="light">ID/PW 찾기</ion-button>
+        </section>
+    
+      </ion-content>
+    </ion-app>
   </div>
   <div *ngIf="userid!=null">
   <ion-list>
