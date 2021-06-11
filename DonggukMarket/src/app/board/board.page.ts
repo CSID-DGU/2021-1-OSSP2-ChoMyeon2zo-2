@@ -138,7 +138,7 @@ export class boardpage {
     } else {
       let today=new Date();
       let year=today.getFullYear();
-      let month=today.getMonth();
+      let month=today.getMonth()+1;
       let day=today.getDate();
       let hours=today.getHours();
       let minutes = today.getMinutes();
