@@ -9,7 +9,7 @@
         <ion-icon class="top-icon" name="notifications-outline"> </ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title><b expand="full"> 홈 </b> {{major}} {{name}}</ion-title>
+    <ion-title><b expand="full"> 홈 </b> {{school}} {{name}}</ion-title>
   </ion-toolbar>
 
   <ion-slides pager="true">
@@ -36,7 +36,7 @@
         <ion-img src='{{item.img}}' style='width:50%;height:50%'></ion-img>
         <ion-label>
           <h2>{{item.titleInput}}</h2>
-          <p>{{item.userid}} {{item.type}}</p>
+          <p>{{item.type}}</p>
           <p>{{item.price}} 원</p>
         </ion-label>
         <ion-note slot="end">
