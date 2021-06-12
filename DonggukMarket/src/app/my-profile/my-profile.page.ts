@@ -31,6 +31,7 @@ export class MyProfilePage {
   public group:number=0;
   public rent:number=0;
   public sell:number=0;
+  public credit_str: string; 
   constructor(
     public navCtrl: NavController, 
     // private alertCtrl: AlertController,
@@ -74,6 +75,26 @@ export class MyProfilePage {
 
         if((_this.trade_count) !== 0){
           _this.trage_credit_score = _this.trade_credit/_this.trade_count;
+          if(_this.trage_credit_score<5 && _this.trage_credit_score>=4)
+          {
+               _this.credit_str="매우좋음";
+          }
+          else if(_this.trage_credit_score<4 && _this.trage_credit_score>=3)
+          {
+               _this.credit_str="좋음";
+          }
+          else if(_this.trage_credit_score<3 && _this.trage_credit_score>=2)
+          {
+               _this.credit_str="보통";
+          }
+          else if(_this.trage_credit_score<2 && _this.trage_credit_score>=1)
+          {
+               _this.credit_str="나쁨";
+          }
+          else
+          {
+            _this.credit_str="매우 나쁨";
+          }
         }
         else{
           _this.trage_credit_score = 0

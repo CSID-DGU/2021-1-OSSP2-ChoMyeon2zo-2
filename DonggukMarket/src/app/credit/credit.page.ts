@@ -54,7 +54,7 @@ export class CreditPage implements OnInit{
            
 
             console.log(this.tradevalue);
-        this.trade_credit = this.trade_credit + this.tradevalue;
+        this.trade_credit= Number(this.trade_credit) + Number(this.tradevalue*1);
         this.trade_count = this.trade_count + 1;
         let strArray = this.you;    
         this.db.object(`userinfo/${strArray}/trade_credit`).set(this.trade_credit);

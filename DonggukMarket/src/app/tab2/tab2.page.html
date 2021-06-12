@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color = "white">
+  <ion-toolbar color = "dark">
 
       <ion-buttons slot="primary">
         <ion-button (click)="goCategory()" >
@@ -36,9 +36,9 @@
       <ion-item (click)="getPost(item)" class="card" >
           <ion-img src="{{item.img}}" style='width:50%;height:50%'></ion-img>
           <ion-label>
-            <h2>TITLe: {{item.titleInput}} </h2>
-            <p>{{item.boardnick}}</p>
-            <p>PRICE:{{item.price}}</p>
+            <b><h2>{{item.titleInput}}</h2></b>
+            <h6>{{item.boardnick}}</h6>
+            <b><p>{{item.price}}원</p></b>
           </ion-label>
           <ion-note slot="end">
             <ion-icon name="heart" color="danger"></ion-icon>

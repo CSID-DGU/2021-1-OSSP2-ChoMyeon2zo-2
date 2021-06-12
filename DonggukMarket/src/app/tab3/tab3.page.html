@@ -1,16 +1,16 @@
 <ion-header>
-  <ion-toolbar color = "white">
+  <ion-toolbar color = "dark">
     <ion-buttons slot="primary">
-      <ion-button [routerLink]="['/my-like']" fill="clear" color="dark"> <!-- 찜한 품목 목록들 보러가는 버튼 -->
+    
+      <ion-button [routerLink]="['/my-like']" fill="clear" > <!-- 찜한 품목 목록들 보러가는 버튼 -->
         <ion-icon class="top-icon" name="bag-outline"> </ion-icon>
       </ion-button>
-      <ion-button [routerLink]="['/alert']" fill="clear" color="dark"> <!-- 여러가지 알림을 볼 수 있는 버튼 -->
+      <ion-button [routerLink]="['/alert']" fill="clear" > <!-- 여러가지 알림을 볼 수 있는 버튼 -->
         <ion-icon class="top-icon" name="notifications-outline"> </ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title><b expand="full">홈</b></ion-title>
+    <ion-title><b expand="full"> 홈 </b> {{school}} {{name}}</ion-title>
   </ion-toolbar>
-  &nbsp;&nbsp;&nbsp;{{major}} {{name}}<br>&nbsp;
 
   <ion-slides pager="true">
     <ion-slide>
@@ -24,8 +24,8 @@
     </ion-slide>
   </ion-slides>
 
-  <ion-toolbar color="primary">
-    <ion-title>최신글 목록</ion-title>
+  <ion-toolbar color="warning">
+    <ion-title >최신글 목록</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -36,7 +36,7 @@
         <ion-img src='{{item.img}}' style='width:50%;height:50%'></ion-img>
         <ion-label>
           <h2>{{item.titleInput}}</h2>
-          <p>{{item.userid}} {{item.type}}</p>
+          <p>{{item.type}}</p>
           <p>{{item.price}} 원</p>
         </ion-label>
         <ion-note slot="end">

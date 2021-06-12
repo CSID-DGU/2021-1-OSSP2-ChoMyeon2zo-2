@@ -58,7 +58,7 @@ export class Tab5Page {
       if(date.length==1) date = '0'+date;
       var nowDate = new Date(year+'/'+month+'/'+date);
       console.log(olddate+' '+nowDate);
-      if(olddate.setDate(olddate.getMonth()+6) < nowDate.getTime() ){
+      if(olddate.setMonth(olddate.getMonth()+6) < nowDate.getTime()){
         return this.alertCtrl.create({
           header: '',
           message: '재학생 인증을 한지<br>6개월이 되었습니다',

@@ -39,7 +39,8 @@ export class ProfileModifyPage {
 
   public majorInput: string=''; 
   public phoneInput: string='';
-
+  public nickInput: string='';
+  public credit_str: string; 
   constructor(
     public navCtrl: NavController, 
     // private alertCtrl: AlertController,
@@ -66,7 +67,34 @@ export class ProfileModifyPage {
         _this.nickname=user['nickname'];
         _this.school=user['school'];
         _this.trade_credit=user['trade_credit'];
+        _this.trade_count=user['trade_count'];
         _this.phone=user['phone'];
+        if((_this.trade_count) !== 0){
+          _this.trage_credit_score = _this.trade_credit/_this.trade_count;
+          if(_this.trage_credit_score<5 && _this.trage_credit_score>=4)
+          {
+               _this.credit_str="매우좋음";
+          }
+          else if(_this.trage_credit_score<4 && _this.trage_credit_score>=3)
+          {
+               _this.credit_str="좋음";
+          }
+          else if(_this.trage_credit_score<3 && _this.trage_credit_score>=2)
+          {
+               _this.credit_str="보통";
+          }
+          else if(_this.trage_credit_score<2 && _this.trage_credit_score>=1)
+          {
+               _this.credit_str="나쁨";
+          }
+          else
+          {
+            _this.credit_str="매우 나쁨";
+          }
+        }
+        else{
+          _this.trage_credit_score = 0
+        }
         _this.set();
        })
      });
@@ -116,7 +144,7 @@ export class ProfileModifyPage {
   }
 
   modify(){
-    if(this.majorInput===''||this.phoneInput===''){
+   /* if(this.majorInput===''||this.phoneInput===''){
       this.alertCtrl.create({
         header: '',
         message: '내용을 전부 입력해주세요',
@@ -128,16 +156,17 @@ export class ProfileModifyPage {
         alertEI.present();
       });
       return 0;
-    } else {
+    }*/ 
       var profileRef = firebase.database().ref(`userinfo/${this.userid}`);
       profileRef.update({
         phone :  this.phoneInput,
-        major :  this.majorInput
+        major :  this.majorInput,
+        nickname : this.nickInput
       });
       alert('프로필이 수정되었습니다.');
       this.ngOnInit();
       this.router.navigate(['/my-profile']);
-    }
+    
   }
   pickPicture() {
     // tslint:disable-next-line:prefer-const
