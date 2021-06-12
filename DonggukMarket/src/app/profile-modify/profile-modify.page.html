@@ -62,12 +62,16 @@
                 {{email}} <!-- 유저 이메일 -->
           </ion-item>
           <ion-item>
+            <ion-label><b>닉네임</b></ion-label>
+            <ion-input [(ngModel)]="nickInput" placeholder = {{nickname}} style="text-align: right;"></ion-input> <!-- 유저 전화번호 -->
+          </ion-item>
+          <ion-item>
             <ion-label><b>전화번호</b></ion-label>
             <ion-input [(ngModel)]="phoneInput" placeholder = {{phone}} style="text-align: right;"></ion-input> <!-- 유저 전화번호 -->
           </ion-item>
           <ion-item>
             <ion-label><b>신뢰도</b></ion-label>
-                {{trade_credit}} <!-- 신뢰도 -->
+            {{credit_str}} <!-- 신뢰도 -->
           </ion-item>
         </ion-card-content>
       </ion-card>
