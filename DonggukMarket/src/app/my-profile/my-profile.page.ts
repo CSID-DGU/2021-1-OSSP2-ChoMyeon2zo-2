@@ -75,7 +75,7 @@ export class MyProfilePage {
 
         if((_this.trade_count) !== 0){
           _this.trage_credit_score = _this.trade_credit/_this.trade_count;
-          if(_this.trage_credit_score<5 && _this.trage_credit_score>=4)
+          if(_this.trage_credit_score<=5 && _this.trage_credit_score>=4)
           {
                _this.credit_str="매우좋음";
           }
