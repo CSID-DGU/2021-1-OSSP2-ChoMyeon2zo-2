@@ -48,6 +48,7 @@ $ ionic cordova run android
 
 ### 1. 홈 화면
 > 사용자가 앱에 대하여 한눈에 알아볼 수 있고, 최신글 및 각종 알림을 받는 기능을 제공
+<img src="./image/KakaoTalk_20210618_191749239.gif"> | <img src="./image/KakaoTalk_20210618_191749395.gif"> | <img src="./image/KakaoTalk_20210618_191749660.gif">
 
 ### 2. 채팅
 > 사용자가 거래 대상자와 연락할 수 있도록 연결해주는 채팅 기능을 제공
