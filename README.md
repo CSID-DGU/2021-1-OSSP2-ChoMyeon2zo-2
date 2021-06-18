@@ -89,8 +89,18 @@ $ ionic cordova run android
 
 ### 5. 마이페이지
 > 사용자가 이용한 서비스 내역확인 및 회원 정보에 관한 전체적인 접근 갱신 기능 제공 
-- 프로필 수정
-<p align="center"><img height="30%" width="30%" src="./DonggukMarket/image/KakaoTalk_20210614_120709753.gif">
+- 프로필 보기, 프로필 수정, 관심목록 확인
+<p align="center"><img height="30%" width="30%" src="./DonggukMarket/image/프로필보기.gif">
+ <img height="30%" width="30%" src="./DonggukMarket/image/프로필수정.gif">
+ <img height="30%" width="30%" src="./DonggukMarket/image/관심목록.gif">
+ </p>
+ 
+- 판매 목록 확인, 대여 목록 확인, 공동구매 목록 확인
+<p align="center"><img height="30%" width="30%" src="./DonggukMarket/image/판매.gif">
+ <img height="30%" width="30%" src="./DonggukMarket/image/대여.gif">
+ <img height="30%" width="30%" src="./DonggukMarket/image/공구.gif">
+ </p>
+ <br>
 
 ## 팀원
 ---
